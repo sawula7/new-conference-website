@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-body text-slate-700 antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+  .btn-accent {
+    @apply inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-primary-darker font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+  .btn-outline-white {
+    @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-primary-darker font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
+  }
+  .btn-outline-primary {
+    @apply inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
+  }
+  .card {
+    @apply bg-white rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300;
+  }
+  .section-tag {
+    @apply inline-block text-sm font-bold text-primary uppercase tracking-[0.15em] mb-4;
+  }
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl font-bold text-primary-darker leading-tight;
+  }
+  .section-subtext {
+    @apply text-slate-500 text-lg mt-4 leading-relaxed max-w-2xl;
+  }
+}
+
+/* ─── Hero background ─── */
+.hero-bg {
+  background: linear-gradient(135deg, #0a3d52 0%, #0d5f7e 35%, #1786a5 70%, #1a96ba 100%);
+}
+
+/* ─── Grid dot pattern ─── */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ─── Scroll reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ─── Mobile nav overlay ─── */
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* ─── Schedule tab fade ─── */
+.tab-fade-enter-active,
+.tab-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.tab-fade-enter-from,
+.tab-fade-leave-to {
+  opacity: 0;
+}
+
+/* ─── Countdown boxes ─── */
+.countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  width: 80px;
+  height: 80px;
+}
+@media (min-width: 768px) {
+  .countdown-box { width: 96px; height: 96px; }
+}
