@@ -110,7 +110,7 @@
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <NuxtLink to="/conference" class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
+        <NuxtLink to="/conference/register" class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
           Register Now
         </NuxtLink>
         <button
@@ -178,7 +178,7 @@
               </NuxtLink>
             </template>
           </nav>
-          <NuxtLink to="/conference" class="btn-accent mt-4" @click="closeMobile">Register Now</NuxtLink>
+          <NuxtLink to="/conference/register" class="btn-accent mt-4" @click="closeMobile">Register Now</NuxtLink>
         </div>
       </div>
     </Transition>
