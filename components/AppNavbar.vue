@@ -54,8 +54,6 @@
                      transition-all duration-200"
             >
               <template v-for="child in link.children" :key="child.label">
-
-                <!-- Child with grandchildren — flyout -->
                 <div v-if="child.children" class="relative group/sub">
                   <button
                     class="w-full flex items-center justify-between gap-2 px-4 py-2.5 text-sm text-slate-600
@@ -67,8 +65,6 @@
                     </span>
                     <ChevronRight :size="12" class="text-slate-400 flex-shrink-0" />
                   </button>
-
-                  <!-- Level-2 flyout panel -->
                   <div
                     class="absolute left-full top-0 ml-1 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
                            opacity-0 invisible translate-x-1
@@ -86,8 +82,6 @@
                     </NuxtLink>
                   </div>
                 </div>
-
-                <!-- Plain child link -->
                 <NuxtLink
                   v-else
                   :to="child.href"
@@ -116,10 +110,7 @@
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <NuxtLink
-          to="/conference"
-          class="hidden lg:inline-flex btn-accent text-sm py-2 px-5"
-        >
+        <NuxtLink to="/conference" class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
           Register Now
         </NuxtLink>
         <button
@@ -137,101 +128,57 @@
   <!-- Mobile Menu Overlay -->
   <Teleport to="body">
     <Transition name="mobile-menu">
-      <div
-        v-if="mobileOpen"
-        class="fixed inset-0 z-40 bg-primary-darker overflow-y-auto"
-      >
-        <!-- Close button -->
-        <button
-          class="absolute top-5 right-5 text-white/70 hover:text-white transition-colors"
-          @click="mobileOpen = false"
-        >
+      <div v-if="mobileOpen" class="fixed inset-0 z-40 bg-primary-darker overflow-y-auto">
+        <button class="absolute top-5 right-5 text-white/70 hover:text-white transition-colors" @click="mobileOpen = false">
           <X :size="26" />
         </button>
-
         <div class="flex flex-col items-center justify-center min-h-full py-20 gap-6">
-          <!-- Logo -->
           <div class="flex flex-col items-center gap-3 mb-2">
             <img src="/slstl-logo.png" alt="SLSTL" class="h-14 w-auto opacity-90" />
-            <div class="font-display font-black text-3xl text-white">
-              R4TLI <span class="text-accent">2026</span>
-            </div>
+            <div class="font-display font-black text-3xl text-white">R4TLI <span class="text-accent">2026</span></div>
           </div>
-
-          <!-- Nav items -->
           <nav class="flex flex-col items-center gap-1 w-full max-w-xs">
             <template v-for="link in navLinks" :key="link.label">
-
-              <!-- Level-1 accordion -->
               <div v-if="link.children" class="w-full">
                 <button
                   class="w-full flex items-center justify-center gap-2 font-display font-semibold text-xl text-white/80 hover:text-accent transition-colors py-2"
                   @click="toggleMobile(link.label)"
                 >
                   {{ link.label }}
-                  <ChevronDown :size="16" class="transition-transform duration-200"
-                    :class="mobileExpanded === link.label ? 'rotate-180' : ''" />
+                  <ChevronDown :size="16" class="transition-transform duration-200" :class="mobileExpanded === link.label ? 'rotate-180' : ''" />
                 </button>
-
                 <Transition name="accordion">
                   <div v-if="mobileExpanded === link.label" class="flex flex-col items-center gap-0.5 pb-3">
                     <template v-for="child in link.children" :key="child.label">
-
-                      <!-- Level-2 accordion -->
                       <div v-if="child.children" class="w-full flex flex-col items-center">
                         <button
                           class="flex items-center gap-1.5 text-base text-white/60 hover:text-accent transition-colors py-1.5"
                           @click="toggleMobileSub(child.label)"
                         >
                           {{ child.label }}
-                          <ChevronDown :size="13" class="transition-transform duration-200"
-                            :class="mobileSubExpanded === child.label ? 'rotate-180' : ''" />
+                          <ChevronDown :size="13" class="transition-transform duration-200" :class="mobileSubExpanded === child.label ? 'rotate-180' : ''" />
                         </button>
-
                         <Transition name="accordion">
                           <div v-if="mobileSubExpanded === child.label" class="flex flex-col items-center gap-0.5 pb-1">
-                            <NuxtLink
-                              v-for="grand in child.children"
-                              :key="grand.label"
-                              :to="grand.href"
-                              class="text-sm text-white/40 hover:text-accent transition-colors py-1 pl-4"
-                              @click="closeMobile"
-                            >
+                            <NuxtLink v-for="grand in child.children" :key="grand.label" :to="grand.href" class="text-sm text-white/40 hover:text-accent transition-colors py-1 pl-4" @click="closeMobile">
                               {{ grand.label }}
                             </NuxtLink>
                           </div>
                         </Transition>
                       </div>
-
-                      <!-- Plain child -->
-                      <NuxtLink
-                        v-else
-                        :to="child.href"
-                        class="text-base text-white/55 hover:text-accent transition-colors py-1.5"
-                        @click="closeMobile"
-                      >
+                      <NuxtLink v-else :to="child.href" class="text-base text-white/55 hover:text-accent transition-colors py-1.5" @click="closeMobile">
                         {{ child.label }}
                       </NuxtLink>
                     </template>
                   </div>
                 </Transition>
               </div>
-
-              <!-- Plain top-level item -->
-              <NuxtLink
-                v-else
-                :to="link.href"
-                class="font-display font-semibold text-xl text-white/80 hover:text-accent transition-colors py-2"
-                @click="closeMobile"
-              >
+              <NuxtLink v-else :to="link.href" class="font-display font-semibold text-xl text-white/80 hover:text-accent transition-colors py-2" @click="closeMobile">
                 {{ link.label }}
               </NuxtLink>
             </template>
           </nav>
-
-          <NuxtLink to="/conference" class="btn-accent mt-4" @click="closeMobile">
-            Register Now
-          </NuxtLink>
+          <NuxtLink to="/conference" class="btn-accent mt-4" @click="closeMobile">Register Now</NuxtLink>
         </div>
       </div>
     </Transition>
@@ -251,9 +198,9 @@ const navLinks = [
     label: 'Home',
     href: '/',
     children: [
-      { label: 'Who We Are',            href: '/about',         icon: Info      },
-      { label: 'Our Objectives',        href: '/objectives',    icon: Users     },
-      { label: 'Our Scope',             href: '/scope',         icon: Clock     },
+      { label: 'Who We Are',            href: '/about',        icon: Info      },
+      { label: 'Our Objectives',        href: '/objectives',   icon: Users     },
+      { label: 'Our Scope',             href: '/scope',        icon: Clock     },
       {
         label: 'Exco Members',
         href: '/exco',
@@ -272,17 +219,17 @@ const navLinks = [
           { label: '2025', href: '/annual-reports/2025', icon: FileText },
         ],
       },
-      { label: 'Contact Us',            href: '/contact',       icon: Mail      },
-      { label: 'Constitution of SLSTL', href: '/constitution',  icon: Scale     },
+      { label: 'Contact Us',            href: '/contact',      icon: Mail      },
+      { label: 'Constitution of SLSTL', href: '/constitution', icon: Scale     },
     ],
   },
   {
     label: 'Membership',
     href: '/membership',
     children: [
-      { label: 'Membership Levels and Criteria', href: '/membership/levels',    icon: FileText },
-      { label: 'How to Apply',                   href: '/membership/apply',     icon: FileText },
-      { label: 'Existing Members',               href: '/membership/existing',  icon: FileText },
+      { label: 'Membership Levels and Criteria', href: '/membership/levels',   icon: FileText },
+      { label: 'How to Apply',                   href: '/membership/apply',    icon: FileText },
+      { label: 'Existing Members',               href: '/membership/existing', icon: FileText },
     ],
   },
   {
@@ -312,34 +259,23 @@ const navLinks = [
         href: '/conference/past',
         icon: FileText,
         children: [
-          { label: 'TLOG-2024',            href: '/conference/past/tlog-2024',    icon: FileText },
-          { label: 'R4TLI-2024',           href: '/conference/past/r4tli-2024',   icon: FileText },
-          { label: 'R4TLI-2023',           href: '/conference/past/r4tli-2023',   icon: FileText },
-          { label: 'R4TLI-2022',           href: '/conference/past/r4tli-2022',   icon: FileText },
-          { label: 'R4TLI-2021',           href: '/conference/past/r4tli-2021',   icon: FileText },
-          { label: 'R4TLI-2020',           href: '/conference/past/r4tli-2020',   icon: FileText },
-          { label: 'EAST2019 Conference',  href: '/conference/past/east-2019',    icon: FileText },
-          { label: 'R4TLI-2019',           href: '/conference/past/r4tli-2019',   icon: FileText },
-          { label: 'R4TLI-2018',           href: '/conference/past/r4tli-2018',   icon: FileText },
-          { label: 'R4TLI-2017',           href: '/conference/past/r4tli-2017',   icon: FileText },
-          { label: 'R4TLI-2016',           href: '/conference/past/r4tli-2016',   icon: FileText },
+          { label: 'TLOG-2024',           href: '/conference/past/tlog-2024',  icon: FileText },
+          { label: 'R4TLI-2024',          href: '/conference/past/r4tli-2024', icon: FileText },
+          { label: 'R4TLI-2023',          href: '/conference/past/r4tli-2023', icon: FileText },
+          { label: 'R4TLI-2022',          href: '/conference/past/r4tli-2022', icon: FileText },
+          { label: 'R4TLI-2021',          href: '/conference/past/r4tli-2021', icon: FileText },
+          { label: 'R4TLI-2020',          href: '/conference/past/r4tli-2020', icon: FileText },
+          { label: 'EAST2019 Conference', href: '/conference/past/east-2019',  icon: FileText },
+          { label: 'R4TLI-2019',          href: '/conference/past/r4tli-2019', icon: FileText },
+          { label: 'R4TLI-2018',          href: '/conference/past/r4tli-2018', icon: FileText },
+          { label: 'R4TLI-2017',          href: '/conference/past/r4tli-2017', icon: FileText },
+          { label: 'R4TLI-2016',          href: '/conference/past/r4tli-2016', icon: FileText },
         ],
       },
     ],
   },
   { label: 'Journal (JSALT)', href: '/journal' },
-  {
-    label: 'Events',
-    href: '/events',
-    children: [
-      { label: 'Rethinking Transport & Logistics with AI', href: '/events/rethinking-transport-ai', icon: FileText },
-      { label: 'Port Access Elevated Highway',             href: '/events/port-access-highway',     icon: FileText },
-      { label: 'Advanced Excel Workshops',                 href: '/events/excel-workshops',          icon: FileText },
-      { label: 'IPFA',                                     href: '/events/ipfa',                     icon: FileText },
-      { label: 'PT-COVID19',                               href: '/events/pt-covid19',               icon: FileText },
-      { label: 'KVLINE',                                   href: '/events/kvline',                   icon: FileText },
-    ],
-  },
+  { label: 'Events',          href: '/events'  },
 ]
 
 function closeMobile() {

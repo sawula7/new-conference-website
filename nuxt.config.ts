@@ -22,4 +22,16 @@ export default defineNuxtConfig({
     display: 'swap',
   },
   css: ['~/assets/css/main.css'],
+
+  // PayHere credentials — set via environment variables
+  // Server-only (secret):  NUXT_PAYHERE_SECRET=<your_merchant_secret>
+  // Public (merchant id):  NUXT_PUBLIC_PAYHERE_MERCHANT_ID=<your_merchant_id>
+  // Public (mode):         NUXT_PUBLIC_PAYHERE_MODE=live   (default: sandbox)
+  runtimeConfig: {
+    payhereSecret: '',
+    public: {
+      payhereMerchantId: '',
+      payhereMode: 'sandbox',
+    },
+  },
 })
