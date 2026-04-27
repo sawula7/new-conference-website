@@ -129,6 +129,15 @@
     <!-- Main centred content -->
     <div class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-12 text-center">
 
+      <!-- SLSTL Logo -->
+      <div class="mb-8">
+        <img
+          src="/slstl-logo.png"
+          alt="SLSTL — Sri Lanka Society of Transport & Logistics"
+          class="h-16 sm:h-20 w-auto mx-auto drop-shadow-lg opacity-95"
+        />
+      </div>
+
       <!-- Top badges -->
       <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
         <span class="inline-flex items-center gap-1.5 bg-white/10 text-white text-xs font-semibold px-4 py-1.5 rounded-full border border-white/20 backdrop-blur-sm">

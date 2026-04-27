@@ -7,15 +7,27 @@
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#hero" class="flex items-center gap-2 group" @click.prevent="scrollTo('#hero')">
+      <a href="#hero" class="flex items-center gap-3 group" @click.prevent="scrollTo('#hero')">
+        <!-- SLSTL logo: white on dark, teal-bg pill on white -->
+        <div
+          class="flex-shrink-0 transition-all duration-300"
+          :class="isScrolled ? 'bg-primary rounded-lg p-1.5' : ''"
+        >
+          <img
+            src="/slstl-logo.png"
+            alt="SLSTL"
+            class="w-auto transition-all duration-300"
+            :class="isScrolled ? 'h-7' : 'h-9'"
+          />
+        </div>
         <div class="flex flex-col leading-none">
           <span
-            :class="['font-display font-black text-2xl transition-colors', isScrolled ? 'text-primary-darker' : 'text-white']"
+            :class="['font-display font-black text-xl transition-colors', isScrolled ? 'text-primary-darker' : 'text-white']"
           >
             R4TLI <span class="text-accent">2026</span>
           </span>
           <span
-            :class="['text-xs font-medium tracking-wide transition-colors', isScrolled ? 'text-slate-400' : 'text-white/60']"
+            :class="['text-[11px] font-medium tracking-wide transition-colors', isScrolled ? 'text-slate-400' : 'text-white/55']"
           >
             SLSTL International Conference
           </span>
@@ -75,8 +87,11 @@
         </button>
 
         <!-- Logo in overlay -->
-        <div class="font-display font-black text-3xl text-white mb-2">
-          R4TLI <span class="text-accent">2026</span>
+        <div class="flex flex-col items-center gap-3 mb-2">
+          <img src="/slstl-logo.png" alt="SLSTL" class="h-14 w-auto opacity-90" />
+          <div class="font-display font-black text-3xl text-white">
+            R4TLI <span class="text-accent">2026</span>
+          </div>
         </div>
 
         <nav class="flex flex-col items-center gap-5">
