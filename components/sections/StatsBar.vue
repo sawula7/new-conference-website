@@ -1,15 +1,24 @@
 <template>
-  <section class="bg-primary-darker py-14">
+  <section class="bg-primary-darker py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div ref="container" class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x md:divide-white/10">
+      <div ref="container" class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
         <div
           v-for="(stat, i) in stats"
           :key="stat.label"
-          class="text-center px-4"
+          class="relative text-center px-6 py-2 group"
+          :class="i < stats.length - 1 ? 'md:border-r md:border-white/10' : ''"
         >
-          <div class="font-display font-black text-4xl md:text-5xl text-white">
+          <!-- Icon -->
+          <div class="flex justify-center mb-3">
+            <div class="w-11 h-11 bg-white/8 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
+              <component :is="stat.icon" :size="20" class="text-accent" />
+            </div>
+          </div>
+          <!-- Number -->
+          <div class="font-display font-black text-4xl md:text-5xl text-white leading-none">
             {{ displayValues[i] }}<span class="text-accent">{{ stat.suffix }}</span>
           </div>
+          <!-- Label -->
           <div class="text-primary-300 text-xs font-bold uppercase tracking-widest mt-2">
             {{ stat.label }}
           </div>
@@ -20,11 +29,13 @@
 </template>
 
 <script setup lang="ts">
+import { FileText, Globe, BookMarked, Users } from 'lucide-vue-next'
+
 const stats = [
-  { value: 300, suffix: '+',  label: 'Papers Submitted' },
-  { value: 45,  suffix: '+',  label: 'Countries Represented' },
-  { value: 12,  suffix: 'th', label: 'Annual Edition' },
-  { value: 600, suffix: '+',  label: 'Total Attendees' },
+  { value: 300, suffix: '+',  label: 'Papers Submitted',     icon: FileText   },
+  { value: 45,  suffix: '+',  label: 'Countries Represented', icon: Globe      },
+  { value: 12,  suffix: 'th', label: 'Annual Edition',        icon: BookMarked },
+  { value: 600, suffix: '+',  label: 'Total Attendees',       icon: Users      },
 ]
 
 const displayValues = ref(stats.map(() => 0))

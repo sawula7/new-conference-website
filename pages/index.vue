@@ -8,12 +8,13 @@
       <ThemesSection />
       <ImportantDates />
       <SpeakersSection />
-      <ScheduleSection />
       <CallForPapers />
       <RegistrationSection />
+      <ScheduleSection />
       <VenueSection />
-      <SponsorsSection />
+      <GallerySection />
       <PreviousEditions />
+      <SponsorsSection />
     </main>
     <AppFooter />
   </div>

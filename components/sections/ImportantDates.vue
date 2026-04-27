@@ -1,126 +1,186 @@
 <template>
-  <section id="dates" class="py-24 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+  <section id="dates" class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
       <!-- Header -->
-      <div class="text-center mb-16 reveal">
+      <div class="text-center mb-14 reveal">
         <span class="section-tag">Key Deadlines</span>
         <h2 class="section-heading">Important Dates</h2>
         <p class="section-subtext mx-auto">
-          Mark your calendar — plan your submission and registration around these critical dates.
+          Mark your calendar — plan your submission and registration around these critical deadlines.
         </p>
       </div>
 
-      <!-- Timeline -->
-      <div class="relative">
-        <!-- Vertical spine -->
-        <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-slate-100 -translate-x-1/2"></div>
-
-        <div class="space-y-8">
+      <!-- Date cards grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div
+          v-for="(item, i) in dates"
+          :key="item.title"
+          class="reveal group"
+          :class="`reveal-delay-${(i % 3) + 1}`"
+        >
           <div
-            v-for="(item, i) in dates"
-            :key="item.title"
-            class="relative reveal"
-            :class="`reveal-delay-${(i % 3) + 1}`"
+            class="bg-white rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-lg h-full flex flex-col"
+            :class="item.status === 'active'
+              ? 'border-accent shadow-md shadow-accent/15 ring-1 ring-accent/30'
+              : item.status === 'past'
+                ? 'border-slate-100 opacity-70'
+                : 'border-slate-100'"
           >
-            <!-- Dot on spine -->
+            <!-- Card top band with icon -->
             <div
-              class="absolute left-6 md:left-1/2 -translate-x-1/2 mt-6 w-3.5 h-3.5 rounded-full border-2 border-white z-10 ring-4"
-              :class="dotClass(item.status)"
-            ></div>
-
-            <!-- Card — alternates sides on md+ -->
-            <div
-              class="ml-14 md:ml-0 md:w-[calc(50%-2.5rem)]"
-              :class="i % 2 === 0 ? 'md:mr-auto md:pr-4' : 'md:ml-auto md:pl-4'"
+              class="px-5 py-4 flex items-center justify-between"
+              :class="item.status === 'active'
+                ? 'bg-accent/10'
+                : item.status === 'past'
+                  ? 'bg-slate-50'
+                  : 'bg-primary/6'"
             >
-              <div
-                class="card p-5 relative"
-                :class="item.status === 'active'
-                  ? 'border-accent shadow-md shadow-accent/15 ring-1 ring-accent/30'
-                  : item.status === 'past' ? 'opacity-55' : ''"
-              >
-                <!-- Status pill -->
-                <span
-                  class="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide"
-                  :class="pillClass(item.status)"
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-9 h-9 rounded-xl flex items-center justify-center"
+                  :class="item.status === 'active'
+                    ? 'bg-accent/25'
+                    : item.status === 'past'
+                      ? 'bg-slate-200'
+                      : 'bg-primary/15'"
                 >
-                  {{ item.statusLabel }}
-                </span>
-
-                <h3 class="font-display font-bold text-primary-darker text-sm mt-2">{{ item.title }}</h3>
-                <p class="text-slate-400 text-xs mt-1 leading-relaxed">{{ item.desc }}</p>
-
-                <div class="flex items-center gap-1.5 mt-3">
-                  <CalendarDays :size="12" class="text-primary" />
-                  <span class="font-semibold text-primary text-sm">{{ item.date }}</span>
+                  <component
+                    :is="item.icon"
+                    :size="16"
+                    :class="item.status === 'active'
+                      ? 'text-accent-darker'
+                      : item.status === 'past'
+                        ? 'text-slate-400'
+                        : 'text-primary'"
+                  />
                 </div>
+                <span
+                  class="text-[10px] font-bold uppercase tracking-widest"
+                  :class="item.status === 'active'
+                    ? 'text-accent-darker'
+                    : item.status === 'past'
+                      ? 'text-slate-400'
+                      : 'text-primary/70'"
+                >
+                  {{ item.category }}
+                </span>
+              </div>
+
+              <!-- Status pill -->
+              <span
+                class="text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wide"
+                :class="pillClass(item.status)"
+              >
+                {{ item.statusLabel }}
+              </span>
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="font-display font-bold text-primary-darker text-sm leading-snug">
+                {{ item.title }}
+              </h3>
+              <p class="text-slate-400 text-xs mt-2 leading-relaxed flex-1">
+                {{ item.desc }}
+              </p>
+
+              <!-- Date -->
+              <div
+                class="flex items-center gap-2 mt-4 pt-4 border-t"
+                :class="item.status === 'active' ? 'border-accent/20' : 'border-slate-100'"
+              >
+                <CalendarDays
+                  :size="14"
+                  :class="item.status === 'active' ? 'text-accent-darker' : 'text-primary'"
+                />
+                <span
+                  class="font-bold text-sm"
+                  :class="item.status === 'active' ? 'text-accent-darker' : 'text-primary-dark'"
+                >
+                  {{ item.date }}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Bottom note -->
+      <p class="text-center text-slate-400 text-xs mt-10 reveal">
+        All deadlines are at <span class="font-semibold">23:59 Sri Lanka Standard Time (UTC+5:30)</span>.
+        Dates are subject to change — check back regularly.
+      </p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { CalendarDays } from 'lucide-vue-next'
+import {
+  CalendarDays, FileText, CheckCircle2, Edit3, CreditCard, Mic,
+} from 'lucide-vue-next'
 
 const dates = [
   {
     title: 'Abstract Submission Opens',
-    desc: 'Portal opens for optional abstract submissions (300 words max)',
+    desc: 'Portal opens for optional extended abstract submissions (300 words max). Early feedback available.',
     date: 'January 15, 2026',
+    category: 'Submission',
     status: 'past',
-    statusLabel: 'Open',
+    statusLabel: 'Closed',
+    icon: Edit3,
   },
   {
     title: 'Full Paper Submission Deadline',
-    desc: 'Submit your complete manuscript — maximum 8 pages, IEEE two-column format',
+    desc: 'Submit your complete manuscript — maximum 8 pages, IEEE two-column format via the online portal.',
     date: 'March 31, 2026',
+    category: 'Submission',
     status: 'active',
-    statusLabel: 'Upcoming',
+    statusLabel: 'Open Now',
+    icon: FileText,
   },
   {
     title: 'Acceptance Notification',
-    desc: 'Authors notified of review outcomes by the technical programme committee',
+    desc: 'Authors notified of review outcomes by the Technical Programme Committee via email.',
     date: 'May 15, 2026',
+    category: 'Review',
     status: 'upcoming',
     statusLabel: 'Upcoming',
+    icon: CheckCircle2,
   },
   {
     title: 'Camera-Ready Submission',
-    desc: 'Final revised paper plus completed IEEE copyright form',
+    desc: 'Final revised paper plus completed IEEE copyright form must be submitted by this date.',
     date: 'June 15, 2026',
+    category: 'Submission',
     status: 'upcoming',
     statusLabel: 'Upcoming',
+    icon: Edit3,
   },
   {
     title: 'Early Bird Registration Closes',
-    desc: 'Last date for discounted registration — save up to LKR 5,000',
+    desc: 'Last date for discounted registration fees. Save up to LKR 5,000 on delegate passes.',
     date: 'June 30, 2026',
+    category: 'Registration',
     status: 'upcoming',
     statusLabel: 'Upcoming',
+    icon: CreditCard,
   },
   {
     title: 'Conference Days',
-    desc: 'Three days of keynotes, technical sessions, workshops, and networking',
+    desc: 'Three days of keynote sessions, technical tracks, workshops, and networking events.',
     date: 'August 5–7, 2026',
-    status: 'upcoming',
-    statusLabel: 'Conference',
+    category: 'Conference',
+    status: 'conference',
+    statusLabel: 'Main Event',
+    icon: Mic,
   },
 ]
 
-function dotClass(status: string) {
-  if (status === 'past')   return 'bg-slate-300 ring-slate-100'
-  if (status === 'active') return 'bg-accent ring-accent/20'
-  return 'bg-primary ring-primary/15'
-}
-
 function pillClass(status: string) {
-  if (status === 'past')   return 'bg-slate-100 text-slate-400'
-  if (status === 'active') return 'bg-accent/20 text-accent-darker'
-  if (status === 'upcoming' ) return 'bg-primary/10 text-primary-dark'
-  return 'bg-green-100 text-green-700'
+  if (status === 'past')       return 'bg-slate-100 text-slate-400'
+  if (status === 'active')     return 'bg-accent text-primary-darker'
+  if (status === 'conference') return 'bg-primary text-white'
+  return 'bg-primary/10 text-primary-dark'
 }
 </script>
