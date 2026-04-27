@@ -61,7 +61,11 @@
   text-shadow: 0 0 80px rgba(23,134,165,0.4), 0 0 160px rgba(23,134,165,0.15);
 }
 
-/* ─── Grid dot pattern (for non-hero use) ─── */
+/* ─── Inner page hero background ─── */
+.inner-page-hero {
+  background-color: #061e2a;
+  background-image: linear-gradient(155deg, #061e2a 0%, #0a3d52 40%, #0d5f7e 80%, #1786a5 100%);
+}
 .grid-pattern {
   background-image:
     linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),

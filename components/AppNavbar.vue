@@ -7,7 +7,7 @@
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#hero" class="flex items-center gap-3 group" @click.prevent="scrollTo('#hero')">
+      <NuxtLink to="/" class="flex items-center gap-3 group">
         <div
           class="flex-shrink-0 transition-all duration-300"
           :class="isScrolled ? 'bg-primary rounded-lg p-1.5' : ''"
@@ -27,7 +27,7 @@
             SLSTL International Conference
           </span>
         </div>
-      </a>
+      </NuxtLink>
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-1">
@@ -35,7 +35,8 @@
 
           <!-- Top-level link with dropdown -->
           <div v-if="link.children" class="relative group/top">
-            <button
+            <NuxtLink
+              :to="link.href"
               :class="[
                 'flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors hover:text-accent',
                 isScrolled ? 'text-slate-600' : 'text-white/90',
@@ -43,7 +44,7 @@
             >
               {{ link.label }}
               <ChevronDown :size="13" class="transition-transform duration-200 group-hover/top:rotate-180 mt-px" />
-            </button>
+            </NuxtLink>
 
             <!-- Level-1 dropdown panel -->
             <div
@@ -69,62 +70,58 @@
 
                   <!-- Level-2 flyout panel -->
                   <div
-                    class="absolute left-full top-0 ml-1 w-40 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
+                    class="absolute left-full top-0 ml-1 w-48 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
                            opacity-0 invisible translate-x-1
                            group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0
                            transition-all duration-200"
                   >
-                    <a
+                    <NuxtLink
                       v-for="grand in child.children"
                       :key="grand.label"
-                      :href="grand.href"
+                      :to="grand.href"
                       class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-600 hover:text-primary hover:bg-primary-50 transition-colors"
-                      @click.prevent="scrollTo(grand.href)"
                     >
                       <component v-if="grand.icon" :is="grand.icon" :size="13" class="text-primary/60 flex-shrink-0" />
                       {{ grand.label }}
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
 
                 <!-- Plain child link -->
-                <a
+                <NuxtLink
                   v-else
-                  :href="child.href"
+                  :to="child.href"
                   class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-600 hover:text-primary hover:bg-primary-50 transition-colors"
-                  @click.prevent="scrollTo(child.href)"
                 >
                   <component v-if="child.icon" :is="child.icon" :size="14" class="text-primary/60 flex-shrink-0" />
                   {{ child.label }}
-                </a>
+                </NuxtLink>
               </template>
             </div>
           </div>
 
           <!-- Plain top-level link -->
-          <a
+          <NuxtLink
             v-else
-            :href="link.href"
+            :to="link.href"
             :class="[
               'px-3 py-2 text-sm font-medium rounded-md transition-colors hover:text-accent',
               isScrolled ? 'text-slate-600' : 'text-white/90',
             ]"
-            @click.prevent="scrollTo(link.href)"
           >
             {{ link.label }}
-          </a>
+          </NuxtLink>
         </template>
       </nav>
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <a
-          href="#register"
+        <NuxtLink
+          to="/conference"
           class="hidden lg:inline-flex btn-accent text-sm py-2 px-5"
-          @click.prevent="scrollTo('#register')"
         >
           Register Now
-        </a>
+        </NuxtLink>
         <button
           class="lg:hidden p-2 rounded-md transition-colors"
           :class="isScrolled ? 'text-primary-darker' : 'text-white'"
@@ -193,48 +190,48 @@
 
                         <Transition name="accordion">
                           <div v-if="mobileSubExpanded === child.label" class="flex flex-col items-center gap-0.5 pb-1">
-                            <a
+                            <NuxtLink
                               v-for="grand in child.children"
                               :key="grand.label"
-                              :href="grand.href"
+                              :to="grand.href"
                               class="text-sm text-white/40 hover:text-accent transition-colors py-1 pl-4"
-                              @click="navigate(grand.href)"
+                              @click="closeMobile"
                             >
                               {{ grand.label }}
-                            </a>
+                            </NuxtLink>
                           </div>
                         </Transition>
                       </div>
 
                       <!-- Plain child -->
-                      <a
+                      <NuxtLink
                         v-else
-                        :href="child.href"
+                        :to="child.href"
                         class="text-base text-white/55 hover:text-accent transition-colors py-1.5"
-                        @click="navigate(child.href)"
+                        @click="closeMobile"
                       >
                         {{ child.label }}
-                      </a>
+                      </NuxtLink>
                     </template>
                   </div>
                 </Transition>
               </div>
 
               <!-- Plain top-level item -->
-              <a
+              <NuxtLink
                 v-else
-                :href="link.href"
+                :to="link.href"
                 class="font-display font-semibold text-xl text-white/80 hover:text-accent transition-colors py-2"
-                @click="navigate(link.href)"
+                @click="closeMobile"
               >
                 {{ link.label }}
-              </a>
+              </NuxtLink>
             </template>
           </nav>
 
-          <a href="#register" class="btn-accent mt-4" @click="navigate('#register')">
+          <NuxtLink to="/conference" class="btn-accent mt-4" @click="closeMobile">
             Register Now
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </Transition>
@@ -252,40 +249,103 @@ const mobileSubExpanded = ref<string | null>(null)
 const navLinks = [
   {
     label: 'Home',
-    href: '#hero',
+    href: '/',
     children: [
-      { label: 'Who We Are',             href: '#about',      icon: Info      },
-      { label: 'Our Objectives',         href: '#objectives', icon: Users     },
-      { label: 'Our Scope',              href: '#scope',      icon: Clock     },
-      { label: 'Exco Members',           href: '#exco',       icon: Users     },
+      { label: 'Who We Are',            href: '/about',         icon: Info      },
+      { label: 'Our Objectives',        href: '/objectives',    icon: Users     },
+      { label: 'Our Scope',             href: '/scope',         icon: Clock     },
       {
-        label: 'Annual Reports',
-        href: '#reports',
-        icon: BookOpen,
+        label: 'Exco Members',
+        href: '/exco',
+        icon: Users,
         children: [
-          { label: '2026', href: '#reports-2026', icon: FileText },
-          { label: '2025', href: '#reports-2025', icon: FileText },
+          { label: 'Exco Members 2019/2020', href: '/exco/2019-2020', icon: FileText },
+          { label: 'Exco Members 2018/2019', href: '/exco/2018-2019', icon: FileText },
         ],
       },
-      { label: 'Contact Us',             href: '#contact',    icon: Mail      },
-      { label: 'Constitution of SLSTL',  href: '#constitution', icon: Scale  },
+      {
+        label: 'Annual Reports',
+        href: '/annual-reports',
+        icon: BookOpen,
+        children: [
+          { label: '2026', href: '/annual-reports/2026', icon: FileText },
+          { label: '2025', href: '/annual-reports/2025', icon: FileText },
+        ],
+      },
+      { label: 'Contact Us',            href: '/contact',       icon: Mail      },
+      { label: 'Constitution of SLSTL', href: '/constitution',  icon: Scale     },
     ],
   },
-  { label: 'Membership',       href: '#membership' },
-  { label: 'R4TLI Conference', href: '#speakers'   },
-  { label: 'Journal (JSALT)',  href: '#journal'    },
-  { label: 'Events',           href: '#events'     },
+  {
+    label: 'Membership',
+    href: '/membership',
+    children: [
+      { label: 'Membership Levels and Criteria', href: '/membership/levels',    icon: FileText },
+      { label: 'How to Apply',                   href: '/membership/apply',     icon: FileText },
+      { label: 'Existing Members',               href: '/membership/existing',  icon: FileText },
+    ],
+  },
+  {
+    label: 'R4TLI Conference',
+    href: '/conference',
+    children: [
+      { label: 'R4TLI 2025', href: '/conference/r4tli-2025', icon: FileText },
+      {
+        label: 'Conference Proceedings',
+        href: '/conference/proceedings',
+        icon: BookOpen,
+        children: [
+          { label: '2025', href: '/conference/proceedings/2025', icon: FileText },
+          { label: '2024', href: '/conference/proceedings/2024', icon: FileText },
+          { label: '2023', href: '/conference/proceedings/2023', icon: FileText },
+          { label: '2022', href: '/conference/proceedings/2022', icon: FileText },
+          { label: '2021', href: '/conference/proceedings/2021', icon: FileText },
+          { label: '2020', href: '/conference/proceedings/2020', icon: FileText },
+          { label: '2019', href: '/conference/proceedings/2019', icon: FileText },
+          { label: '2018', href: '/conference/proceedings/2018', icon: FileText },
+          { label: '2017', href: '/conference/proceedings/2017', icon: FileText },
+          { label: '2016', href: '/conference/proceedings/2016', icon: FileText },
+        ],
+      },
+      {
+        label: 'Past Conferences',
+        href: '/conference/past',
+        icon: FileText,
+        children: [
+          { label: 'TLOG-2024',            href: '/conference/past/tlog-2024',    icon: FileText },
+          { label: 'R4TLI-2024',           href: '/conference/past/r4tli-2024',   icon: FileText },
+          { label: 'R4TLI-2023',           href: '/conference/past/r4tli-2023',   icon: FileText },
+          { label: 'R4TLI-2022',           href: '/conference/past/r4tli-2022',   icon: FileText },
+          { label: 'R4TLI-2021',           href: '/conference/past/r4tli-2021',   icon: FileText },
+          { label: 'R4TLI-2020',           href: '/conference/past/r4tli-2020',   icon: FileText },
+          { label: 'EAST2019 Conference',  href: '/conference/past/east-2019',    icon: FileText },
+          { label: 'R4TLI-2019',           href: '/conference/past/r4tli-2019',   icon: FileText },
+          { label: 'R4TLI-2018',           href: '/conference/past/r4tli-2018',   icon: FileText },
+          { label: 'R4TLI-2017',           href: '/conference/past/r4tli-2017',   icon: FileText },
+          { label: 'R4TLI-2016',           href: '/conference/past/r4tli-2016',   icon: FileText },
+        ],
+      },
+    ],
+  },
+  { label: 'Journal (JSALT)', href: '/journal' },
+  {
+    label: 'Events',
+    href: '/events',
+    children: [
+      { label: 'Rethinking Transport & Logistics with AI', href: '/events/rethinking-transport-ai', icon: FileText },
+      { label: 'Port Access Elevated Highway',             href: '/events/port-access-highway',     icon: FileText },
+      { label: 'Advanced Excel Workshops',                 href: '/events/excel-workshops',          icon: FileText },
+      { label: 'IPFA',                                     href: '/events/ipfa',                     icon: FileText },
+      { label: 'PT-COVID19',                               href: '/events/pt-covid19',               icon: FileText },
+      { label: 'KVLINE',                                   href: '/events/kvline',                   icon: FileText },
+    ],
+  },
 ]
 
-function scrollTo(href: string) {
-  document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-}
-
-function navigate(href: string) {
+function closeMobile() {
   mobileOpen.value = false
   mobileExpanded.value = null
   mobileSubExpanded.value = null
-  nextTick(() => scrollTo(href))
 }
 
 function toggleMobile(label: string) {
