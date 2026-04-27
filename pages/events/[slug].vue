@@ -110,6 +110,99 @@
               <div class="prose prose-sm prose-slate max-w-none event-description" v-html="event.description" />
             </div>
 
+            <!-- Brochure card -->
+            <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-md">
+
+              <!-- Brochure header -->
+              <div class="relative px-6 py-5 flex items-center justify-between" :style="{ background: event.gradient }">
+                <div>
+                  <p class="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">
+                    {{ event.sessionType ?? event.category }}
+                  </p>
+                  <p class="text-white font-black text-lg leading-snug max-w-xs drop-shadow">
+                    {{ event.shortTitle }}
+                  </p>
+                </div>
+                <img src="/slstl-logo.png" alt="SLSTL" class="h-10 w-auto opacity-80 flex-shrink-0" />
+              </div>
+
+              <!-- Brochure body -->
+              <div class="bg-white">
+
+                <!-- Speaker + investment row -->
+                <div class="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+
+                  <!-- Speaker column -->
+                  <div v-if="event.speakers?.length" class="p-6">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">Conducted by</p>
+                    <div v-for="speaker in event.speakers" :key="speaker.name" class="flex flex-col items-center text-center gap-3">
+                      <!-- Avatar -->
+                      <div class="w-20 h-20 rounded-full bg-primary/10 border-2 border-primary/25 flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <img v-if="speaker.photo" :src="speaker.photo" :alt="speaker.name" class="w-full h-full object-cover" />
+                        <span v-else class="font-black text-primary text-xl">{{ speakerInitials(speaker.name) }}</span>
+                      </div>
+                      <div>
+                        <p class="font-black text-primary-darker text-sm uppercase tracking-wide">{{ speaker.name }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5 leading-snug">{{ speaker.role }}</p>
+                      </div>
+                      <p class="text-xs text-slate-500 leading-relaxed text-left">{{ speaker.bio }}</p>
+                    </div>
+                  </div>
+
+                  <!-- Details column -->
+                  <div class="p-6 flex flex-col gap-4">
+                    <!-- Investment -->
+                    <div class="text-center">
+                      <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Investment</p>
+                      <p class="font-black text-xl" :class="minPrice(event) === 0 ? 'text-emerald-600' : 'text-accent-darker'">
+                        {{ minPrice(event) === 0 ? 'FREE' : `${event.currency} ${minPrice(event).toLocaleString()}` }}
+                      </p>
+                    </div>
+
+                    <!-- Date / Time / Platform pills -->
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                      <div class="border border-slate-200 rounded-xl p-2.5">
+                        <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Date</p>
+                        <p class="text-xs font-bold text-slate-700 mt-0.5 leading-snug">{{ event.dateDisplay }}</p>
+                      </div>
+                      <div class="border border-slate-200 rounded-xl p-2.5">
+                        <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Time</p>
+                        <p class="text-xs font-bold text-slate-700 mt-0.5 leading-snug">
+                          {{ event.time }}<span v-if="event.endTime"><br/>– {{ event.endTime }}</span>
+                        </p>
+                      </div>
+                      <div class="border border-slate-200 rounded-xl p-2.5">
+                        <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400">
+                          {{ event.platform ? 'Platform' : 'Venue' }}
+                        </p>
+                        <p class="text-xs font-bold text-slate-700 mt-0.5 leading-snug">
+                          {{ event.platform ?? event.venue.split(',')[0] }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Description excerpt -->
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                      The transport and logistics sector faces persistent challenges, including dynamic conditions
+                      and escalating costs — all demanding innovative solutions. This session discusses the potential
+                      of Artificial Intelligence in transport and logistics, presenting use cases and ideas for innovation.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Contact footer -->
+                <div v-if="event.contact" class="border-t border-slate-100 px-6 py-3 flex flex-wrap items-center justify-between gap-2 bg-slate-50">
+                  <p class="text-xs text-slate-400 italic">For further information, contact:</p>
+                  <div class="text-xs text-slate-600 font-medium text-right">
+                    <span>{{ event.contact.name }}</span>
+                    <span v-if="event.contact.role">, {{ event.contact.role }}</span>
+                    <span v-if="event.contact.email"> · {{ event.contact.email }}</span>
+                    <span v-if="event.contact.phone"> · {{ event.contact.phone }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- Sidebar: tickets / registration -->
@@ -233,7 +326,7 @@ import {
   ChevronRight, Zap, Clock, CalendarDays, Clock2, MapPin, Users,
   CheckCircle2, Loader2, ArrowLeft,
 } from 'lucide-vue-next'
-import { getEvent } from '~/data/events'
+import { getEvent, type SLSTLEvent } from '~/data/events'
 
 const route = useRoute()
 const slug = route.params.slug as string
@@ -258,6 +351,15 @@ const form = reactive({ firstName: '', lastName: '', email: '', phone: '' })
 const formError = ref('')
 const formSuccess = ref('')
 const processing = ref(false)
+
+function minPrice(ev: SLSTLEvent) {
+  return Math.min(...ev.tickets.map(t => t.price))
+}
+
+function speakerInitials(name: string) {
+  return name.replace(/^(Dr|Prof|Mr|Mrs|Ms)\.?\s*/i, '')
+    .split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase()
+}
 
 function validate(): boolean {
   formError.value = ''

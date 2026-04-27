@@ -4,6 +4,20 @@ export interface EventTicket {
   description: string
 }
 
+export interface EventSpeaker {
+  name: string
+  role: string       // title / position
+  bio: string
+  photo?: string     // URL; leave undefined for initials avatar
+}
+
+export interface EventContact {
+  name: string
+  role?: string
+  email?: string
+  phone?: string
+}
+
 export interface SLSTLEvent {
   slug: string
   title: string
@@ -14,14 +28,18 @@ export interface SLSTLEvent {
   endTime?: string
   location: string
   venue: string
+  platform?: string     // e.g. "Zoom" for virtual events
   organizer: string
   category: string
+  sessionType?: string  // e.g. "Knowledge Sharing Session"
   status: 'upcoming' | 'past'
-  badge?: 'going-fast' | 'sales-end-soon' | null
+  badge?: 'sales-end-soon' | null
   tickets: EventTicket[]
   currency: string
   description: string   // Brochure / full description (HTML allowed)
   highlights: string[]
+  speakers?: EventSpeaker[]
+  contact?: EventContact
   gradient: string      // CSS gradient for placeholder image
 }
 
@@ -38,8 +56,9 @@ export const events: SLSTLEvent[] = [
     venue: 'ITC Ratnadipa, a Luxury Collection Hotel, Colombo',
     organizer: 'SLSTL',
     category: 'Conference',
+    sessionType: 'Knowledge Sharing Session',
     status: 'upcoming',
-    badge: 'going-fast',
+    badge: null,
     currency: 'LKR',
     tickets: [
       { type: 'Early Bird',      price: 3500,  description: 'Limited early-bird seats — includes lunch and refreshments.' },
@@ -53,6 +72,19 @@ export const events: SLSTLEvent[] = [
       'Networking lunch and Q&A sessions',
       'Certificate of participation',
     ],
+    speakers: [
+      {
+        name: 'Dr. Damayanthi Herath',
+        role: 'Director, Engineering Education Unit & Senior Lecturer, Faculty of Engineering, University of Peradeniya',
+        bio: 'Dr. Damayanthi Herath serves as the Director of the Engineering Education Unit and Senior Lecturer at the Faculty of Engineering, University of Peradeniya, Sri Lanka. She holds a B.Sc. (Hons) in Computer Engineering from the University of Peradeniya and a Ph.D. from the Melbourne School of Engineering, The University of Melbourne, Australia. Her research expertise spans computational intelligence, -omics data analysis, and edutainment, with a robust publication record and numerous presentations at international conferences. She is currently leading the Data Engineering and Research (DEAR) group and Computational Biology (CompBio) group at Peradeniya.',
+      },
+    ],
+    contact: {
+      name: 'Maryse De Costa',
+      role: 'Event Manager',
+      email: 'admin.secretary@slstl.lk',
+      phone: '+94 77 566 9579',
+    },
     description: `
       <p>Join us for a landmark one-day forum organised by the Sri Lanka Society of Transport &amp; Logistics (SLSTL),
       bringing together researchers, industry practitioners, and policymakers to explore how Artificial Intelligence
@@ -102,6 +134,10 @@ export const events: SLSTLEvent[] = [
       'Discussion on economic and environmental impact',
       'Post-event report distributed to all attendees',
     ],
+    contact: {
+      name: 'SLSTL Secretariat',
+      email: 'admin.secretary@slstl.lk',
+    },
     description: `
       <p>An expert panel discussion on the proposed Port Access Elevated Highway project, which aims to
       decongest the Colombo Port access routes and improve freight movement efficiency.</p>
@@ -135,6 +171,10 @@ export const events: SLSTLEvent[] = [
       'Dashboard building for KPI tracking',
       'Participants receive course materials and certificate',
     ],
+    contact: {
+      name: 'SLSTL Secretariat',
+      email: 'admin.secretary@slstl.lk',
+    },
     description: `
       <p>A hands-on, full-day workshop designed for logistics and supply chain professionals who want to
       take their Excel skills to the next level. Participants learned advanced data analysis techniques
@@ -180,6 +220,7 @@ export const events: SLSTLEvent[] = [
     time: '10:00 AM',
     location: 'Online (Virtual)',
     venue: 'Zoom Webinar',
+    platform: 'Zoom',
     organizer: 'SLSTL',
     category: 'Webinar',
     status: 'past',

@@ -38,22 +38,6 @@
           >
             <!-- Gradient banner -->
             <div class="relative h-44 flex-shrink-0" :style="{ background: ev.gradient }">
-              <!-- Badges -->
-              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                <span
-                  v-if="ev.badge === 'going-fast'"
-                  class="inline-flex items-center gap-1 bg-accent text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow"
-                >
-                  <Zap :size="9" /> Going Fast
-                </span>
-                <span
-                  v-else-if="ev.badge === 'sales-end-soon'"
-                  class="inline-flex items-center gap-1 bg-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow"
-                >
-                  <Clock :size="9" /> Sales End Soon
-                </span>
-              </div>
-
               <!-- Status pill top-right -->
               <div class="absolute top-3 right-3">
                 <span
@@ -129,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import { Zap, Clock, MapPin, AlarmClock, ArrowRight, CalendarX } from 'lucide-vue-next'
+import { MapPin, AlarmClock, ArrowRight, CalendarX } from 'lucide-vue-next'
 import { events, type SLSTLEvent } from '~/data/events'
 
 useHead({ title: 'Events — SLSTL' })
