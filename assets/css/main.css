@@ -41,14 +41,24 @@
   }
 }
 
-/* ─── Hero background (gradient + subtle grid combined) ─── */
+/* ─── Hero background (deep teal gradient + subtle grid) ─── */
 .hero-bg {
-  background-color: #0a3d52;
+  background-color: #061e2a;
   background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(135deg, #0a3d52 0%, #0d5f7e 35%, #1786a5 70%, #1a96ba 100%);
-  background-size: 50px 50px, 50px 50px, 100% 100%;
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(160deg, #061e2a 0%, #0a3d52 30%, #0d5f7e 65%, #1786a5 100%);
+  background-size: 60px 60px, 60px 60px, 100% 100%;
+}
+
+/* ─── Hero vignette (dark edges, bright centre) ─── */
+.hero-vignette {
+  background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 50%, rgba(6,30,42,0.65) 100%);
+}
+
+/* ─── Hero title subtle text glow ─── */
+.hero-title-glow {
+  text-shadow: 0 0 80px rgba(23,134,165,0.4), 0 0 160px rgba(23,134,165,0.15);
 }
 
 /* ─── Grid dot pattern (for non-hero use) ─── */
