@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative min-h-screen hero-bg grid-pattern flex flex-col overflow-hidden">
+  <section id="hero" class="relative min-h-screen hero-bg flex flex-col overflow-hidden">
     <!-- Ambient blobs -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <div class="absolute -top-24 -right-24 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl"></div>

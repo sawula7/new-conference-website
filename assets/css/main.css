@@ -41,12 +41,17 @@
   }
 }
 
-/* ─── Hero background ─── */
+/* ─── Hero background (gradient + subtle grid combined) ─── */
 .hero-bg {
-  background: linear-gradient(135deg, #0a3d52 0%, #0d5f7e 35%, #1786a5 70%, #1a96ba 100%);
+  background-color: #0a3d52;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(135deg, #0a3d52 0%, #0d5f7e 35%, #1786a5 70%, #1a96ba 100%);
+  background-size: 50px 50px, 50px 50px, 100% 100%;
 }
 
-/* ─── Grid dot pattern ─── */
+/* ─── Grid dot pattern (for non-hero use) ─── */
 .grid-pattern {
   background-image:
     linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
