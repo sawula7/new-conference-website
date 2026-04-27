@@ -106,6 +106,19 @@
   opacity: 0;
 }
 
+/* ─── Mobile nav accordion ─── */
+.accordion-enter-active,
+.accordion-leave-active {
+  transition: opacity 0.2s ease, max-height 0.25s ease;
+  max-height: 300px;
+  overflow: hidden;
+}
+.accordion-enter-from,
+.accordion-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
 /* ─── Countdown boxes ─── */
 .countdown-box {
   display: flex;
