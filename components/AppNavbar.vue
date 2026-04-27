@@ -33,8 +33,8 @@
       <nav class="hidden lg:flex items-center gap-1">
         <template v-for="link in navLinks" :key="link.label">
 
-          <!-- Link with dropdown -->
-          <div v-if="link.children" class="relative group">
+          <!-- Top-level link with dropdown -->
+          <div v-if="link.children" class="relative group/top">
             <button
               :class="[
                 'flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors hover:text-accent',
@@ -42,33 +42,66 @@
               ]"
             >
               {{ link.label }}
-              <ChevronDown
-                :size="13"
-                class="transition-transform duration-200 group-hover:rotate-180 mt-px"
-              />
+              <ChevronDown :size="13" class="transition-transform duration-200 group-hover/top:rotate-180 mt-px" />
             </button>
 
-            <!-- Dropdown panel -->
+            <!-- Level-1 dropdown panel -->
             <div
-              class="absolute top-full left-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
+              class="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
                      opacity-0 invisible translate-y-1
-                     group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                     group-hover/top:opacity-100 group-hover/top:visible group-hover/top:translate-y-0
                      transition-all duration-200"
             >
-              <a
-                v-for="child in link.children"
-                :key="child.label"
-                :href="child.href"
-                class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-600 hover:text-primary hover:bg-primary-50 transition-colors"
-                @click.prevent="scrollTo(child.href)"
-              >
-                <component v-if="child.icon" :is="child.icon" :size="14" class="text-primary/60 flex-shrink-0" />
-                {{ child.label }}
-              </a>
+              <template v-for="child in link.children" :key="child.label">
+
+                <!-- Child with grandchildren — flyout -->
+                <div v-if="child.children" class="relative group/sub">
+                  <button
+                    class="w-full flex items-center justify-between gap-2 px-4 py-2.5 text-sm text-slate-600
+                           hover:text-primary hover:bg-primary-50 transition-colors"
+                  >
+                    <span class="flex items-center gap-2.5">
+                      <component v-if="child.icon" :is="child.icon" :size="14" class="text-primary/60 flex-shrink-0" />
+                      {{ child.label }}
+                    </span>
+                    <ChevronRight :size="12" class="text-slate-400 flex-shrink-0" />
+                  </button>
+
+                  <!-- Level-2 flyout panel -->
+                  <div
+                    class="absolute left-full top-0 ml-1 w-40 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50
+                           opacity-0 invisible translate-x-1
+                           group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0
+                           transition-all duration-200"
+                  >
+                    <a
+                      v-for="grand in child.children"
+                      :key="grand.label"
+                      :href="grand.href"
+                      class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-600 hover:text-primary hover:bg-primary-50 transition-colors"
+                      @click.prevent="scrollTo(grand.href)"
+                    >
+                      <component v-if="grand.icon" :is="grand.icon" :size="13" class="text-primary/60 flex-shrink-0" />
+                      {{ grand.label }}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Plain child link -->
+                <a
+                  v-else
+                  :href="child.href"
+                  class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-600 hover:text-primary hover:bg-primary-50 transition-colors"
+                  @click.prevent="scrollTo(child.href)"
+                >
+                  <component v-if="child.icon" :is="child.icon" :size="14" class="text-primary/60 flex-shrink-0" />
+                  {{ child.label }}
+                </a>
+              </template>
             </div>
           </div>
 
-          <!-- Plain link -->
+          <!-- Plain top-level link -->
           <a
             v-else
             :href="link.href"
@@ -132,36 +165,62 @@
           <nav class="flex flex-col items-center gap-1 w-full max-w-xs">
             <template v-for="link in navLinks" :key="link.label">
 
-              <!-- Item with children — accordion -->
+              <!-- Level-1 accordion -->
               <div v-if="link.children" class="w-full">
                 <button
                   class="w-full flex items-center justify-center gap-2 font-display font-semibold text-xl text-white/80 hover:text-accent transition-colors py-2"
                   @click="toggleMobile(link.label)"
                 >
                   {{ link.label }}
-                  <ChevronDown
-                    :size="16"
-                    class="transition-transform duration-200"
-                    :class="mobileExpanded === link.label ? 'rotate-180' : ''"
-                  />
+                  <ChevronDown :size="16" class="transition-transform duration-200"
+                    :class="mobileExpanded === link.label ? 'rotate-180' : ''" />
                 </button>
-                <!-- Sub-items -->
+
                 <Transition name="accordion">
-                  <div v-if="mobileExpanded === link.label" class="flex flex-col items-center gap-1 pb-2">
-                    <a
-                      v-for="child in link.children"
-                      :key="child.label"
-                      :href="child.href"
-                      class="text-base text-white/55 hover:text-accent transition-colors py-1.5"
-                      @click="navigate(child.href)"
-                    >
-                      {{ child.label }}
-                    </a>
+                  <div v-if="mobileExpanded === link.label" class="flex flex-col items-center gap-0.5 pb-3">
+                    <template v-for="child in link.children" :key="child.label">
+
+                      <!-- Level-2 accordion -->
+                      <div v-if="child.children" class="w-full flex flex-col items-center">
+                        <button
+                          class="flex items-center gap-1.5 text-base text-white/60 hover:text-accent transition-colors py-1.5"
+                          @click="toggleMobileSub(child.label)"
+                        >
+                          {{ child.label }}
+                          <ChevronDown :size="13" class="transition-transform duration-200"
+                            :class="mobileSubExpanded === child.label ? 'rotate-180' : ''" />
+                        </button>
+
+                        <Transition name="accordion">
+                          <div v-if="mobileSubExpanded === child.label" class="flex flex-col items-center gap-0.5 pb-1">
+                            <a
+                              v-for="grand in child.children"
+                              :key="grand.label"
+                              :href="grand.href"
+                              class="text-sm text-white/40 hover:text-accent transition-colors py-1 pl-4"
+                              @click="navigate(grand.href)"
+                            >
+                              {{ grand.label }}
+                            </a>
+                          </div>
+                        </Transition>
+                      </div>
+
+                      <!-- Plain child -->
+                      <a
+                        v-else
+                        :href="child.href"
+                        class="text-base text-white/55 hover:text-accent transition-colors py-1.5"
+                        @click="navigate(child.href)"
+                      >
+                        {{ child.label }}
+                      </a>
+                    </template>
                   </div>
                 </Transition>
               </div>
 
-              <!-- Plain item -->
+              <!-- Plain top-level item -->
               <a
                 v-else
                 :href="link.href"
@@ -183,27 +242,39 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, X, ChevronDown, Info, Users, Clock, Mail } from 'lucide-vue-next'
+import { Menu, X, ChevronDown, ChevronRight, Info, Users, Clock, Mail, BookOpen, FileText, Scale } from 'lucide-vue-next'
 
 const isScrolled = ref(false)
 const mobileOpen = ref(false)
 const mobileExpanded = ref<string | null>(null)
+const mobileSubExpanded = ref<string | null>(null)
 
 const navLinks = [
   {
     label: 'Home',
     href: '#hero',
     children: [
-      { label: 'About SLSTL',        href: '#about',     icon: Info  },
-      { label: 'Executive Committee', href: '#committee', icon: Users },
-      { label: 'History',             href: '#history',   icon: Clock },
-      { label: 'Contact Us',          href: '#contact',   icon: Mail  },
+      { label: 'Who We Are',             href: '#about',      icon: Info      },
+      { label: 'Our Objectives',         href: '#objectives', icon: Users     },
+      { label: 'Our Scope',              href: '#scope',      icon: Clock     },
+      { label: 'Exco Members',           href: '#exco',       icon: Users     },
+      {
+        label: 'Annual Reports',
+        href: '#reports',
+        icon: BookOpen,
+        children: [
+          { label: '2026', href: '#reports-2026', icon: FileText },
+          { label: '2025', href: '#reports-2025', icon: FileText },
+        ],
+      },
+      { label: 'Contact Us',             href: '#contact',    icon: Mail      },
+      { label: 'Constitution of SLSTL',  href: '#constitution', icon: Scale  },
     ],
   },
-  { label: 'Membership',        href: '#dates'    },
-  { label: 'R4TLI Conference',  href: '#speakers' },
-  { label: 'Journal (JSALT)',   href: '#schedule' },
-  { label: 'Events',            href: '#cfp'      },
+  { label: 'Membership',       href: '#membership' },
+  { label: 'R4TLI Conference', href: '#speakers'   },
+  { label: 'Journal (JSALT)',  href: '#journal'    },
+  { label: 'Events',           href: '#events'     },
 ]
 
 function scrollTo(href: string) {
@@ -213,11 +284,17 @@ function scrollTo(href: string) {
 function navigate(href: string) {
   mobileOpen.value = false
   mobileExpanded.value = null
+  mobileSubExpanded.value = null
   nextTick(() => scrollTo(href))
 }
 
 function toggleMobile(label: string) {
   mobileExpanded.value = mobileExpanded.value === label ? null : label
+  mobileSubExpanded.value = null
+}
+
+function toggleMobileSub(label: string) {
+  mobileSubExpanded.value = mobileSubExpanded.value === label ? null : label
 }
 
 onMounted(() => {
