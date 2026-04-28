@@ -137,7 +137,7 @@ INSERT IGNORE INTO membership_fees (membership_category, year, amount, descripti
 -- Hash generated with bcrypt salt rounds 12
 INSERT IGNORE INTO users (email, password_hash, role, status) VALUES (
   'admin@slstl.lk',
-  '$2a$12$pY1b2r.F3bEGEBTfG1J7l.7Y5Kck3XgUfHRcE3P3n5n3VxG8tLBHC',
+  '$2b$12$Ip62U./QnQWPaYM8D9zbxOoqcUA7.36ENtkrNVe2fL0WvN9vC2nzm',
   'admin',
   'active'
 );
