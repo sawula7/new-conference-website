@@ -59,8 +59,10 @@ useHead({ title: 'Login — SLSTL Member Portal' })
 const { login, user } = useAuth()
 
 // Redirect if already logged in
-if (user.value?.status === 'active') navigateTo('/member')
-else if (user.value?.status === 'pending') navigateTo('/pending')
+if (user.value?.role === 'admin')                                          navigateTo('/admin')
+else if (user.value?.role === 'manager')                                   navigateTo('/manager')
+else if (user.value?.status === 'active')                                  navigateTo('/member')
+else if (user.value?.status === 'pending')                                 navigateTo('/pending')
 
 const email    = ref('')
 const password = ref('')
@@ -72,7 +74,9 @@ async function submit() {
   loading.value = true
   try {
     const u = await login(email.value, password.value)
-    if (u.role === 'manager' || u.role === 'admin') {
+    if (u.role === 'admin') {
+      await navigateTo('/admin')
+    } else if (u.role === 'manager') {
       await navigateTo('/manager')
     } else if (u.status === 'active') {
       await navigateTo('/member')
