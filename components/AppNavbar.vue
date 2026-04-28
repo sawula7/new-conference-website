@@ -110,11 +110,17 @@
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-2">
-        <NuxtLink to="/login"
+        <NuxtLink v-if="!user" to="/login"
                   class="hidden lg:inline-flex items-center text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
                   :class="isScrolled ? 'text-primary-darker hover:bg-primary/5' : 'text-white/90 hover:text-white'">
           Login
         </NuxtLink>
+        <button v-else
+                class="hidden lg:inline-flex items-center text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
+                :class="isScrolled ? 'text-primary-darker hover:bg-primary/5' : 'text-white/90 hover:text-white'"
+                @click="logout">
+          Logout
+        </button>
         <NuxtLink to="/membership/apply"
                   class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
           Be a Member
@@ -185,7 +191,8 @@
             </template>
           </nav>
           <div class="flex flex-col items-center gap-3 mt-4">
-            <NuxtLink to="/login" class="text-white/80 font-semibold text-lg hover:text-accent transition-colors" @click="closeMobile">Login</NuxtLink>
+            <NuxtLink v-if="!user" to="/login" class="text-white/80 font-semibold text-lg hover:text-accent transition-colors" @click="closeMobile">Login</NuxtLink>
+            <button v-else class="text-white/80 font-semibold text-lg hover:text-accent transition-colors" @click="logout; closeMobile()">Logout</button>
             <NuxtLink to="/membership/apply" class="btn-accent" @click="closeMobile">Be a Member</NuxtLink>
           </div>
         </div>
@@ -197,6 +204,7 @@
 <script setup lang="ts">
 import { Menu, X, ChevronDown, ChevronRight, Info, Users, Clock, Mail, BookOpen, FileText, Scale } from 'lucide-vue-next'
 
+const { user, logout } = useAuth()
 const isScrolled = ref(false)
 const mobileOpen = ref(false)
 const mobileExpanded = ref<string | null>(null)
