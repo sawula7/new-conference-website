@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import { queryOne, execute } from '~/server/utils/db'
+import { sendPaymentConfirmation } from '~/server/utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -22,7 +23,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const payment = await queryOne<any>(
-    'SELECT id, user_id, fee_id FROM member_payments WHERE order_id = ?',
+    `SELECT mp.id, mp.user_id, mp.fee_id, mp.amount,
+            u.email, ma.full_name, mf.description, mf.year
+     FROM member_payments mp
+     JOIN users u ON u.id = mp.user_id
+     LEFT JOIN membership_applications ma ON ma.user_id = mp.user_id
+     JOIN membership_fees mf ON mf.id = mp.fee_id
+     WHERE mp.order_id = ?`,
     [order_id]
   )
   if (!payment) return 'NOT_FOUND'
@@ -39,6 +46,17 @@ export default defineEventHandler(async (event) => {
      WHERE id = ?`,
     [newStatus, order_id, JSON.stringify(body), payment.id]
   )
+
+  if (newStatus === 'completed') {
+    const desc = payment.description ?? `Membership Fee ${payment.year}`
+    await sendPaymentConfirmation(
+      payment.email,
+      payment.full_name ?? payment.email,
+      desc,
+      parseFloat(payment.amount).toLocaleString(),
+      order_id
+    )
+  }
 
   return 'OK'
 })

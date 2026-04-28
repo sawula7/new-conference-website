@@ -33,10 +33,16 @@ export default defineNuxtConfig({
     mysqlUser:      '',
     mysqlPassword:  '',
     mysqlDatabase:  '',
+    smtpHost:       '',
+    smtpPort:       '587',
+    smtpUser:       '',
+    smtpPass:       '',
+    smtpFrom:       '"SLSTL" <no-reply@slstl.lk>',
     public: {
       // Client-accessible
       payhereMerchantId: '',
       payhereMode: 'sandbox',
+      siteUrl:     'http://localhost:3000',
     },
   },
 })

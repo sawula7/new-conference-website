@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 import { query, queryOne, execute } from '~/server/utils/db'
 import { signToken, setAuthCookie } from '~/server/utils/auth'
+import { sendRegistrationConfirmation } from '~/server/utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -55,6 +56,8 @@ export default defineEventHandler(async (event) => {
 
   const token = signToken({ userId, email, role: 'user', status: 'pending' })
   setAuthCookie(event, token)
+
+  await sendRegistrationConfirmation(email, full_name)
 
   return { message: 'Application submitted successfully. Awaiting manager approval.' }
 })

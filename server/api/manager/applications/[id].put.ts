@@ -1,5 +1,6 @@
 import { requireRole } from '~/server/utils/auth'
 import { queryOne, execute, query } from '~/server/utils/db'
+import { sendApprovalEmail, sendRejectionEmail } from '~/server/utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const auth   = requireRole(event, ['manager', 'admin'])
@@ -37,6 +38,8 @@ export default defineEventHandler(async (event) => {
        VALUES (?, ?, ?, ?, ?)`,
       [app.user_id, nextNum, app.apply_for, app.id, auth.userId]
     )
+    const user = await queryOne<any>('SELECT email FROM users WHERE id = ?', [app.user_id])
+    if (user) await sendApprovalEmail(user.email, app.full_name, nextNum, app.apply_for)
     return { message: `Application approved. Membership number: ${nextNum}` }
   } else {
     await execute(
@@ -44,6 +47,8 @@ export default defineEventHandler(async (event) => {
       [auth.userId, body.notes ?? null, id]
     )
     await execute("UPDATE users SET status='rejected' WHERE id=?", [app.user_id])
+    const user = await queryOne<any>('SELECT email FROM users WHERE id = ?', [app.user_id])
+    if (user) await sendRejectionEmail(user.email, app.full_name, body.notes)
     return { message: 'Application rejected.' }
   }
 })

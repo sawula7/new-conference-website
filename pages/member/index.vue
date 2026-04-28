@@ -53,6 +53,12 @@
             <h3 class="font-display font-bold text-primary-darker">Payments</h3>
             <p class="text-xs text-slate-400 mt-1">View history and pay pending fees</p>
           </NuxtLink>
+          <NuxtLink to="/member/events"
+                    class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <Calendar :size="22" class="text-primary mb-3" />
+            <h3 class="font-display font-bold text-primary-darker">Events</h3>
+            <p class="text-xs text-slate-400 mt-1">Browse and register for SLSTL events</p>
+          </NuxtLink>
           <button class="text-left bg-white rounded-2xl border border-slate-100 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all"
                   @click="logout">
             <LogOut :size="22" class="text-slate-400 mb-3" />
@@ -67,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircle2, User, CreditCard, LogOut } from 'lucide-vue-next'
+import { CheckCircle2, User, CreditCard, LogOut, Calendar } from 'lucide-vue-next'
 definePageMeta({ middleware: 'member' })
 useHead({ title: 'Member Dashboard — SLSTL' })
 

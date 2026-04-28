@@ -1,5 +1,6 @@
 import crypto from 'node:crypto'
 import { queryOne, execute } from '~/server/utils/db'
+import { sendPasswordResetEmail } from '~/server/utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const { email } = await readBody(event)
@@ -18,9 +19,9 @@ export default defineEventHandler(async (event) => {
     [user.id, token, expires]
   )
 
-  // In production: send this token via email
-  // For now, log it so the admin can manually share the reset link
-  console.info(`[Password Reset] Token for ${email}: /reset-password?token=${token}`)
+  const config   = useRuntimeConfig()
+  const resetUrl = `${config.public.siteUrl}/reset-password?token=${token}`
+  await sendPasswordResetEmail(email, resetUrl)
 
   return { message: 'If that email exists, a reset link has been sent.' }
 })

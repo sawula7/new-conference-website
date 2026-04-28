@@ -125,6 +125,52 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- ─── Events ───────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS events (
+  id                    INT AUTO_INCREMENT PRIMARY KEY,
+  title                 VARCHAR(255) NOT NULL,
+  slug                  VARCHAR(255) UNIQUE NOT NULL,
+  short_description     VARCHAR(500),
+  description           TEXT,
+  event_date            DATE,
+  time_start            VARCHAR(20),
+  time_end              VARCHAR(20),
+  venue                 VARCHAR(255),
+  location              VARCHAR(500),
+  category              VARCHAR(50) DEFAULT 'webinar',
+  platform              VARCHAR(50),
+  status                ENUM('draft','published','cancelled') NOT NULL DEFAULT 'draft',
+  image_url             VARCHAR(500),
+  is_free               BOOLEAN DEFAULT FALSE,
+  general_fee           DECIMAL(10,2) DEFAULT 0.00,
+  member_fee            DECIMAL(10,2) DEFAULT 0.00,
+  student_fee           DECIMAL(10,2) DEFAULT 0.00,
+  capacity              INT,
+  registration_deadline DATE,
+  extra_data            JSON,
+  created_by            INT,
+  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+-- ─── Event Registrations ──────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS event_registrations (
+  id           INT AUTO_INCREMENT PRIMARY KEY,
+  event_id     INT NOT NULL,
+  user_id      INT NOT NULL,
+  order_id     VARCHAR(100) UNIQUE NOT NULL,
+  amount       DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  currency     VARCHAR(10) DEFAULT 'LKR',
+  status       ENUM('pending','completed','cancelled','free') NOT NULL DEFAULT 'pending',
+  payhere_data JSON,
+  paid_at      TIMESTAMP NULL,
+  created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_event_user (event_id, user_id),
+  FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id)  REFERENCES users(id)  ON DELETE CASCADE
+);
+
 -- ─── Seed initial fee schedule ────────────────────────────────────────────────
 -- Update amounts as needed for each year
 INSERT IGNORE INTO membership_fees (membership_category, year, amount, description) VALUES
