@@ -109,9 +109,15 @@
       </nav>
 
       <!-- CTA + Mobile toggle -->
-      <div class="flex items-center gap-3">
-        <NuxtLink to="/conference/register" class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
-          Register Now
+      <div class="flex items-center gap-2">
+        <NuxtLink to="/login"
+                  class="hidden lg:inline-flex items-center text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
+                  :class="isScrolled ? 'text-primary-darker hover:bg-primary/5' : 'text-white/90 hover:text-white'">
+          Login
+        </NuxtLink>
+        <NuxtLink to="/membership/apply"
+                  class="hidden lg:inline-flex btn-accent text-sm py-2 px-5">
+          Be a Member
         </NuxtLink>
         <button
           class="lg:hidden p-2 rounded-md transition-colors"
@@ -178,7 +184,10 @@
               </NuxtLink>
             </template>
           </nav>
-          <NuxtLink to="/conference/register" class="btn-accent mt-4" @click="closeMobile">Register Now</NuxtLink>
+          <div class="flex flex-col items-center gap-3 mt-4">
+            <NuxtLink to="/login" class="text-white/80 font-semibold text-lg hover:text-accent transition-colors" @click="closeMobile">Login</NuxtLink>
+            <NuxtLink to="/membership/apply" class="btn-accent" @click="closeMobile">Be a Member</NuxtLink>
+          </div>
         </div>
       </div>
     </Transition>
