@@ -27,5 +27,5 @@
 <script setup lang="ts">
 import { FileText, ChevronRight } from 'lucide-vue-next'
 useHead({ title: 'Annual Reports — SLSTL' })
-const reports = [{ year: '2026' }, { year: '2025' }]
+const reports = [{ year: '2024' }, { year: '2023' }, { year: '2022' }, { year: '2021' }]
 </script>
