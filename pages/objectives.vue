@@ -1,20 +1,26 @@
 <template>
   <div>
     <InnerPageHero title="Our Objectives" subtitle="The core goals that guide SLSTL's work and mission." parent="Home" parent-href="/" />
+
     <section class="py-16 bg-slate-50">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <span class="section-tag">Strategic Goals</span>
-        <h2 class="section-heading mb-10">What We Aim to Achieve</h2>
-        <div class="space-y-4">
-          <div v-for="(obj, i) in objectives" :key="i" class="card p-6 flex gap-5 items-start">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 text-white font-display font-black text-sm">
-              {{ String(i + 1).padStart(2, '0') }}
-            </div>
-            <div>
-              <h3 class="font-display font-bold text-primary-darker">{{ obj.title }}</h3>
-              <p class="text-slate-500 text-sm mt-1 leading-relaxed">{{ obj.desc }}</p>
-            </div>
-          </div>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <p class="text-slate-500 text-sm mb-8">The objectives of the Society shall be as follows:</p>
+
+        <div class="grid lg:grid-cols-2 gap-x-12 gap-y-4">
+          <ul class="space-y-4">
+            <li v-for="obj in leftObjectives" :key="obj"
+                class="flex items-start gap-3 text-slate-600 text-sm leading-relaxed text-justify">
+              <span class="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
+              <span>{{ obj }}</span>
+            </li>
+          </ul>
+          <ul class="space-y-4">
+            <li v-for="obj in rightObjectives" :key="obj"
+                class="flex items-start gap-3 text-slate-600 text-sm leading-relaxed text-justify">
+              <span class="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
+              <span>{{ obj }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -24,13 +30,26 @@
 <script setup lang="ts">
 useHead({ title: 'Our Objectives — SLSTL' })
 
-const objectives = [
-  { title: 'Advance Transport & Logistics Research',        desc: 'Foster and disseminate high-quality academic and applied research that addresses real challenges in transport and logistics across Sri Lanka and South Asia.' },
-  { title: 'Bridge Academia and Industry',                  desc: 'Create meaningful platforms for knowledge exchange between researchers, practitioners, and policymakers to translate research into practice.' },
-  { title: 'Develop Professional Competence',              desc: 'Provide continuing education, workshops, and professional development opportunities to enhance the skills of transport and logistics professionals.' },
-  { title: 'Influence Policy and Practice',                 desc: 'Engage with government and regulatory bodies to inform transport policy, infrastructure planning, and logistics frameworks with evidence-based research.' },
-  { title: 'Build International Partnerships',             desc: 'Establish and strengthen collaborations with international academic and professional organisations to enhance the global profile of Sri Lankan research.' },
-  { title: 'Promote Sustainable Mobility',                 desc: 'Advocate for sustainable, inclusive, and technologically advanced transport and logistics solutions that support economic development and environmental goals.' },
-  { title: 'Recognise Excellence',                         desc: 'Celebrate and reward outstanding research and professional contributions through awards, fellowships, and recognition programmes.' },
+const leftObjectives = [
+  'To provide and maintain an active network of professionals engaged in transport and logistics for the promotion of continuing professional development that would contribute towards the progress of the transport & logistics industry in Sri Lanka;',
+  'To promote, develop, provide, certify or accredit professional and educational study programs for members and non-members already engaged in or expecting to enter the transport & logistics industry in Sri Lanka;',
+  'To encourage the financing, conduct, presentation, publication and other forms of dissemination of research, innovation, and development in transport & logistics;',
+  'To establish linkages with other domestic, regional and international bodies with similar objectives;',
+  'To hold conferences and meetings for the presentation and discussion of professional affairs, the reading of papers and the delivery of lectures for the benefit of members and non-members;',
+  'To consider all public questions, issues and other related matters connected with transport & logistics industry in Sri Lanka and to advise and communicate with the relevant stakeholders including public authorities, regulators, providers and with individuals;',
+  'To endeavor to provide a professional opinion on legislative and other measures affecting the transport & logistics industry in Sri Lanka;',
+  'To collect and circulate statistics and other information relating to transport & logistics industry;',
+  'To serve as a specialized body for the transport & logistics Industry for consultation by national, statutory and legislative bodies on issues of national significance;',
+]
+
+const rightObjectives = [
+  'To exercise professional supervision over the members of the Society, to safeguard their interests and welfare, to further their advancement, and to promote whatsoever that may lead to the improvement of the status of transport & logistics professionals in general and the members of the Society in particular;',
+  'To create a social forum for members and to provide members with information on career updates and job opportunities within and outside Sri Lanka;',
+  'To establish utilizing its own resources or through external funding, Scholarships and/or Fellowships to help those who intend to follow careers in the transport & logistics industry;',
+  'To prepare and maintain a register of professional practitioners engaged in transport & logistics;',
+  'To accredit professionals and institutions engaged in the teaching, research, and practice of transport & logistics in Sri Lanka and to seek recognition of such accreditation from other international bodies;',
+  'To grant the use of abbreviated designations for different professional categories of members and accredited institutions;',
+  'To borrow or raise funds for the purposes of the Society and for that purpose or for securing funds for the performance or discharge of any obligation or liability of the Society or for any other purpose to create, execute, grant, or issue any mortgages, bonds or obligations of the Society and to pay off and re-borrow the funds secured thereby or any part or parts thereof;',
+  'To purchase, dispose of, lease or deal with in any manner movable or immovable property for the Society;',
 ]
 </script>
