@@ -11,7 +11,6 @@
     <VenueSection />
     <GallerySection />
     <PreviousEditions />
-    <SponsorsSection />
   </main>
 </template>
 
