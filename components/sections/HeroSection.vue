@@ -183,16 +183,6 @@
           <CalendarDays :size="15" class="text-accent flex-shrink-0" />
           <span class="text-sm font-medium">August 5–7, 2026</span>
         </div>
-        <div class="hidden sm:block h-4 w-px bg-white/25"></div>
-        <div class="flex items-center gap-2">
-          <MapPin :size="15" class="text-accent flex-shrink-0" />
-          <span class="text-sm font-medium">Colombo, Sri Lanka</span>
-        </div>
-        <div class="hidden sm:block h-4 w-px bg-white/25"></div>
-        <div class="flex items-center gap-2">
-          <Users :size="15" class="text-accent flex-shrink-0" />
-          <span class="text-sm font-medium">In-Person Conference</span>
-        </div>
       </div>
 
       <!-- CTAs -->
