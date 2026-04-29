@@ -19,14 +19,10 @@
                   12th International Research Conference<br>for Transport &amp; Logistics Industry
                 </p>
                 <!-- Mini stats -->
-                <div class="grid grid-cols-2 gap-3 mt-8">
+                <div class="grid grid-cols-3 gap-3 mt-8">
                   <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="font-display font-black text-2xl text-primary-darker">300+</div>
                     <div class="text-xs text-slate-400 mt-0.5">Research Papers</div>
-                  </div>
-                  <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <div class="font-display font-black text-2xl text-primary-darker">45+</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Countries</div>
                   </div>
                   <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="font-display font-black text-2xl text-primary-darker">600+</div>
