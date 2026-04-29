@@ -69,52 +69,6 @@
             </div>
           </div>
 
-          <!-- Getting there -->
-          <div class="card p-5">
-            <h3 class="font-display font-semibold text-primary-darker text-sm mb-4 flex items-center gap-2">
-              <Navigation :size="15" class="text-primary" />
-              Getting There
-            </h3>
-            <div class="space-y-3">
-              <div
-                v-for="t in transport"
-                :key="t.label"
-                class="flex items-start gap-3"
-              >
-                <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0">
-                  <component :is="t.icon" :size="13" class="text-slate-400" />
-                </div>
-                <div>
-                  <p class="font-semibold text-sm text-slate-700">{{ t.label }}</p>
-                  <p class="text-slate-400 text-xs mt-0.5">{{ t.detail }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Hotels -->
-          <div class="card p-5">
-            <h3 class="font-display font-semibold text-primary-darker text-sm mb-4 flex items-center gap-2">
-              <Hotel :size="15" class="text-primary" />
-              Nearby Hotels
-            </h3>
-            <div class="space-y-2.5">
-              <div
-                v-for="hotel in hotels"
-                :key="hotel.name"
-                class="flex items-center justify-between"
-              >
-                <div class="flex items-center gap-2">
-                  <span class="text-sm text-slate-700 font-medium">{{ hotel.name }}</span>
-                  <span class="text-accent text-xs">{{ '★'.repeat(hotel.stars) }}</span>
-                </div>
-                <span class="text-slate-400 text-xs">{{ hotel.distance }}</span>
-              </div>
-            </div>
-            <p class="text-xs text-slate-400 mt-3 border-t border-slate-100 pt-3">
-              * Negotiated conference rates available — contact organisers
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -122,31 +76,5 @@
 </template>
 
 <script setup lang="ts">
-import { MapPin, Building2, Navigation, Hotel, Plane, Bus, Car, ExternalLink } from 'lucide-vue-next'
-
-const transport = [
-  {
-    icon: Plane,
-    label: 'From Bandaranaike International Airport (BIA)',
-    detail: 'Approximately 40–60 min drive to Colombo city centre',
-  },
-  {
-    icon: Bus,
-    label: 'Public Transport',
-    detail: 'SLTB and private bus services connect to the Colombo centre',
-  },
-  {
-    icon: Car,
-    label: 'Taxi / Ride-hailing',
-    detail: 'PickMe and Uber available throughout Colombo 24/7',
-  },
-]
-
-const hotels = [
-  { name: 'Cinnamon Grand Colombo', stars: 5, distance: '~2.5 km' },
-  { name: 'Galadari Hotel',          stars: 5, distance: '~3.0 km' },
-  { name: 'Ramada Colombo',          stars: 4, distance: '~1.5 km' },
-  { name: 'Hotel Janaki',            stars: 3, distance: '~1.2 km' },
-  { name: 'Colombo City Hotel',      stars: 3, distance: '~0.8 km' },
-]
+import { MapPin, Building2, ExternalLink } from 'lucide-vue-next'
 </script>
