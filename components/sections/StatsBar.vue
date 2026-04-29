@@ -32,10 +32,9 @@
 import { FileText, Globe, BookMarked, Users } from 'lucide-vue-next'
 
 const stats = [
-  { value: 300, suffix: '+',  label: 'Papers Submitted',     icon: FileText   },
-  { value: 45,  suffix: '+',  label: 'Countries Represented', icon: Globe      },
-  { value: 12,  suffix: 'th', label: 'Annual Edition',        icon: BookMarked },
-  { value: 600, suffix: '+',  label: 'Total Attendees',       icon: Users      },
+  { value: 300, suffix: '+',  label: 'Papers Submitted', icon: FileText   },
+  { value: 12,  suffix: 'th', label: 'Annual Edition',   icon: BookMarked },
+  { value: 600, suffix: '+',  label: 'Total Attendees',  icon: Users      },
 ]
 
 const displayValues = ref(stats.map(() => 0))
