@@ -263,18 +263,23 @@ VALUES
   )
 ),
 (
-  'Knowledge Sharing Session: Sustainable Urban Mobility',
-  'sustainable-urban-mobility-kss-2022',
-  'A knowledge sharing session on sustainable urban mobility strategies and their application to Sri Lanka''s growing transport challenges.',
-  'This session explores sustainable urban mobility frameworks, low-emission transport solutions, and planning strategies applicable to Sri Lankan cities. Organised by the Sri Lanka Society of Transport and Logistics.',
-  '2022-06-15', '17:00', '18:30',
+  'Online Panel Discussion: Why Electrification of the KV Line Should Not Derail',
+  'kv-line-electrification-panel-discussion-2020',
+  'An online panel discussion separating fact from fiction on the electrification of the KV line, featuring leading experts from transport, economics, and engineering.',
+  'Join us for an online panel discussion on "Why Electrification of the KV Line Should Not Derail — Separating Fact from Fiction". Featuring prominent panelists from the transport and logistics sector. Zoom link provided upon registration.',
+  '2020-11-03', '18:00', '20:00',
   'Online (Zoom)', NULL,
   'webinar', 'Zoom', 'published', TRUE, 0, 0, 0,
   JSON_OBJECT(
     'speakers', JSON_ARRAY(
-      JSON_OBJECT('name','Prof. Amal S. Kumarage','bio','President, SLSTL; Professor of Transport Engineering, University of Moratuwa')
+      JSON_OBJECT('name','Eng. (Dr.) Tilak Siyambalapitiya','bio','Managing Director, Resource Management Associates (Pvt) Ltd'),
+      JSON_OBJECT('name','Prof. Lalithasiri Gunaruwan','bio','Department of Economics, University of Colombo'),
+      JSON_OBJECT('name','Eng. Priyal De Silva','bio','Retired GMR-SLR; Past President of IESL; Past Chairman of CRT'),
+      JSON_OBJECT('name','Eng. (Dr.) T. Sivakumar','bio','President, Sri Lanka Society of Transport & Logistics; Senior Lecturer, Department of Transport & Logistics Management, University of Moratuwa'),
+      JSON_OBJECT('name','Eng. (Dr.) Tissa U Liyanage','bio','Chairman, Master Hellie''s Engineering Consultants (Pvt) Ltd')
     ),
-    'contact', JSON_OBJECT('name','SLSTL Secretariat','email','admin.secretary@slstl.lk')
+    'moderator', 'Prof. Amal S. Kumarage, Department of Transport & Logistics Management, University of Moratuwa',
+    'contact', JSON_OBJECT('name','Mr. Mavin De Silva','phone','0702702221','email','mavinds@uom.lk')
   )
 );
 
