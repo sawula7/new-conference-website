@@ -55,16 +55,6 @@
               <div>
                 <h3 class="font-display font-bold text-primary-darker">Conference Venue</h3>
                 <p class="text-slate-500 text-sm mt-1">To be announced — follow SLSTL for updates</p>
-                <p class="text-slate-400 text-xs mt-1">Colombo, Western Province, Sri Lanka</p>
-                <a
-                  href="https://slstl.lk"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-flex items-center gap-1 text-primary text-xs font-medium hover:underline mt-2"
-                >
-                  Check slstl.lk for announcements
-                  <ExternalLink :size="11" />
-                </a>
               </div>
             </div>
           </div>
@@ -76,5 +66,5 @@
 </template>
 
 <script setup lang="ts">
-import { MapPin, Building2, ExternalLink } from 'lucide-vue-next'
+import { MapPin, Building2 } from 'lucide-vue-next'
 </script>
