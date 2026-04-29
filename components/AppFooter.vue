@@ -125,12 +125,11 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronRight, Mail, Phone, MapPin, Facebook, Linkedin, Twitter } from 'lucide-vue-next'
+import { ChevronRight, Mail, Phone, MapPin, Facebook, Linkedin } from 'lucide-vue-next'
 
 const socials = [
   { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/SLSTL.SriLanka/' },
   { icon: Linkedin, label: 'LinkedIn', href: 'https://lk.linkedin.com/company/sri-lanka-society-of-transport-and-logistics' },
-  { icon: Twitter, label: 'Twitter', href: '#' },
 ]
 
 const quickLinks = [
