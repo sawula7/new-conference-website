@@ -32,7 +32,7 @@
           <iframe
             :src="`/documents/annual-report-${year}.pdf`"
             class="w-full"
-            style="height: 80vh; min-height: 600px;"
+            style="height: calc(100vh - 180px); min-height: 700px;"
             type="application/pdf"
           >
             <div class="p-8 text-center text-slate-500">

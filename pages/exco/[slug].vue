@@ -10,20 +10,16 @@
       <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div v-if="members.length" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div
-            v-for="(member, idx) in members"
+            v-for="member in members"
             :key="member.name"
             class="card p-6 text-center flex flex-col items-center"
           >
             <!-- Avatar with position number for officers -->
             <div
-              class="w-16 h-16 rounded-full flex items-center justify-center mb-4 relative"
+              class="w-16 h-16 rounded-full flex items-center justify-center mb-4"
               :class="isOfficer(member.role) ? 'bg-primary text-white' : 'bg-primary/10 text-primary'"
             >
               <User :size="26" />
-              <span
-                v-if="isOfficer(member.role)"
-                class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent text-white text-[10px] font-black flex items-center justify-center"
-              >{{ idx + 1 }}</span>
             </div>
             <h3 class="font-display font-bold text-primary-darker text-sm leading-snug">{{ member.name }}</h3>
             <span

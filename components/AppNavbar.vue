@@ -202,7 +202,7 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, X, ChevronDown, ChevronRight, Info, Users, Clock, Mail, BookOpen, FileText, Scale } from 'lucide-vue-next'
+import { Menu, X, ChevronDown, ChevronRight, Info, Users, Compass, Mail, BookOpen, FileText, Scale, Target, UserCheck, ClipboardList, CalendarDays, Archive, Globe, Presentation } from 'lucide-vue-next'
 
 const { user, logout } = useAuth()
 const isScrolled = ref(false)
@@ -215,16 +215,16 @@ const navLinks = [
     label: 'Home',
     href: '/',
     children: [
-      { label: 'Who We Are',            href: '/about',        icon: Info      },
-      { label: 'Our Objectives',        href: '/objectives',   icon: Users     },
-      { label: 'Our Scope',             href: '/scope',        icon: Clock     },
+      { label: 'Who We Are',            href: '/about',        icon: Info         },
+      { label: 'Our Objectives',        href: '/objectives',   icon: Target       },
+      { label: 'Our Scope',             href: '/scope',        icon: Compass      },
       {
         label: 'Exco Members',
         href: '/exco',
         icon: Users,
         children: [
-          { label: 'Exco Members 2019/2020', href: '/exco/2019-2020', icon: FileText },
-          { label: 'Exco Members 2018/2019', href: '/exco/2018-2019', icon: FileText },
+          { label: 'Exco Members 2019/2020', href: '/exco/2019-2020', icon: Users },
+          { label: 'Exco Members 2018/2019', href: '/exco/2018-2019', icon: Users },
         ],
       },
       {
@@ -232,32 +232,34 @@ const navLinks = [
         href: '/annual-reports',
         icon: BookOpen,
         children: [
-          { label: '2026', href: '/annual-reports/2026', icon: FileText },
-          { label: '2025', href: '/annual-reports/2025', icon: FileText },
+          { label: '2024', href: '/annual-reports/2024', icon: FileText },
+          { label: '2023', href: '/annual-reports/2023', icon: FileText },
+          { label: '2022', href: '/annual-reports/2022', icon: FileText },
+          { label: '2021', href: '/annual-reports/2021', icon: FileText },
         ],
       },
-      { label: 'Contact Us',            href: '/contact',      icon: Mail      },
-      { label: 'Constitution of SLSTL', href: '/constitution', icon: Scale     },
+      { label: 'Contact Us',            href: '/contact',      icon: Mail         },
+      { label: 'Constitution of SLSTL', href: '/constitution', icon: Scale        },
     ],
   },
   {
     label: 'Membership',
     href: '/membership',
     children: [
-      { label: 'Membership Levels and Criteria', href: '/membership/levels',   icon: FileText },
-      { label: 'How to Apply',                   href: '/membership/apply',    icon: FileText },
-      { label: 'Existing Members',               href: '/membership/existing', icon: FileText },
+      { label: 'Membership Levels and Criteria', href: '/membership/levels',   icon: Target       },
+      { label: 'How to Apply',                   href: '/membership/apply',    icon: ClipboardList },
+      { label: 'Existing Members',               href: '/membership/existing', icon: UserCheck    },
     ],
   },
   {
     label: 'R4TLI Conference',
     href: '/conference',
     children: [
-      { label: 'R4TLI 2025', href: '/conference/r4tli-2025', icon: FileText },
+      { label: 'R4TLI 2025', href: '/conference/r4tli-2025', icon: Globe },
       {
         label: 'Conference Proceedings',
         href: '/conference/proceedings',
-        icon: BookOpen,
+        icon: Archive,
         children: [
           { label: '2025', href: '/conference/proceedings/2025', icon: FileText },
           { label: '2024', href: '/conference/proceedings/2024', icon: FileText },
@@ -274,19 +276,19 @@ const navLinks = [
       {
         label: 'Past Conferences',
         href: '/conference/past',
-        icon: FileText,
+        icon: CalendarDays,
         children: [
-          { label: 'TLOG-2024',           href: '/conference/past/tlog-2024',  icon: FileText },
-          { label: 'R4TLI-2024',          href: '/conference/past/r4tli-2024', icon: FileText },
-          { label: 'R4TLI-2023',          href: '/conference/past/r4tli-2023', icon: FileText },
-          { label: 'R4TLI-2022',          href: '/conference/past/r4tli-2022', icon: FileText },
-          { label: 'R4TLI-2021',          href: '/conference/past/r4tli-2021', icon: FileText },
-          { label: 'R4TLI-2020',          href: '/conference/past/r4tli-2020', icon: FileText },
-          { label: 'EAST2019 Conference', href: '/conference/past/east-2019',  icon: FileText },
-          { label: 'R4TLI-2019',          href: '/conference/past/r4tli-2019', icon: FileText },
-          { label: 'R4TLI-2018',          href: '/conference/past/r4tli-2018', icon: FileText },
-          { label: 'R4TLI-2017',          href: '/conference/past/r4tli-2017', icon: FileText },
-          { label: 'R4TLI-2016',          href: '/conference/past/r4tli-2016', icon: FileText },
+          { label: 'TLOG-2024',           href: '/conference/past/tlog-2024',  icon: CalendarDays },
+          { label: 'R4TLI-2024',          href: '/conference/past/r4tli-2024', icon: CalendarDays },
+          { label: 'R4TLI-2023',          href: '/conference/past/r4tli-2023', icon: CalendarDays },
+          { label: 'R4TLI-2022',          href: '/conference/past/r4tli-2022', icon: CalendarDays },
+          { label: 'R4TLI-2021',          href: '/conference/past/r4tli-2021', icon: CalendarDays },
+          { label: 'R4TLI-2020',          href: '/conference/past/r4tli-2020', icon: CalendarDays },
+          { label: 'EAST2019 Conference', href: '/conference/past/east-2019',  icon: CalendarDays },
+          { label: 'R4TLI-2019',          href: '/conference/past/r4tli-2019', icon: CalendarDays },
+          { label: 'R4TLI-2018',          href: '/conference/past/r4tli-2018', icon: CalendarDays },
+          { label: 'R4TLI-2017',          href: '/conference/past/r4tli-2017', icon: CalendarDays },
+          { label: 'R4TLI-2016',          href: '/conference/past/r4tli-2016', icon: CalendarDays },
         ],
       },
     ],
