@@ -5,6 +5,88 @@
     <section class="py-10 bg-slate-50 min-h-screen">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 space-y-8">
 
+        <!-- Application Form Info -->
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 space-y-8">
+
+          <!-- Application Form -->
+          <div>
+            <h2 class="font-display font-black text-xl text-primary-darker mb-3">Application Form</h2>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+              The most direct way to apply for SLSTL Member is to send us the completed membership application form
+              together with the required documents indicated in the application form. Application should be signed by
+              two SLSTL members who is regular member. You will find our address and contact details for any queries
+              on the application form.
+            </p>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">Application Form –</span>
+                <a href="/documents/slstl-application-form.pdf" target="_blank" download
+                   class="inline-flex items-center gap-1.5 text-primary font-semibold hover:underline">
+                  <Download :size="13" /> Download
+                </a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">Report Structure for Fellow Membership –</span>
+                <a href="/documents/slstl-fellow-report-structure.pdf" target="_blank" download
+                   class="inline-flex items-center gap-1.5 text-primary font-semibold hover:underline">
+                  <Download :size="13" /> Download
+                </a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">Referee Report for Fellow Membership –</span>
+                <a href="/documents/slstl-fellow-referee-report.pdf" target="_blank" download
+                   class="inline-flex items-center gap-1.5 text-primary font-semibold hover:underline">
+                  <Download :size="13" /> Download
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Methods -->
+          <div class="border-t border-slate-100 pt-7">
+            <h2 class="font-display font-black text-xl text-primary-darker mb-3">Payment Methods:</h2>
+            <p class="text-slate-600 text-sm mb-3">You can pay the membership fee and other administrative fees via</p>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-start gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
+                Directly sending a cheque written in favour of "Sri Lanka Society for Transport and Logistics" to the address given in the application form or
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
+                Directly depositing a cheque written in favour of "Sri Lanka Society for Transport and Logistics" to the SLSTL bank account (Original deposit slip should be attached with the application form) or
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
+                Directly depositing cash or transfer funds to the SLSTL bank account (Original deposit/transfer slip should be attached with the application form)
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bank Account Details -->
+          <div class="border-t border-slate-100 pt-7">
+            <h2 class="font-display font-black text-xl text-primary-darker mb-4">Bank Account Details</h2>
+            <div class="grid sm:grid-cols-2 gap-3 text-sm">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide">Name of Account</span>
+                <span class="text-slate-700 font-medium">Sri Lanka Society for Transport and Logistics</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide">Bank</span>
+                <span class="text-slate-700 font-medium">Bank of Ceylon</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide">Account Number</span>
+                <span class="text-slate-700 font-bold">80292714</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wide">Swift Code</span>
+                <span class="text-slate-700 font-medium">BCEYLKLX</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
         <!-- Already have account -->
         <div class="text-center text-sm text-slate-500">
           Already have an account?
@@ -274,6 +356,7 @@
 </template>
 
 <script setup lang="ts">
+import { Download } from 'lucide-vue-next'
 useHead({ title: 'Apply for Membership — SLSTL' })
 
 const TITLES = ['Mr.', 'Mrs.', 'Ms.', 'Miss', 'Dr.', 'Prof.', 'Eng.', 'Rev.']

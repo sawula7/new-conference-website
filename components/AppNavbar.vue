@@ -202,7 +202,7 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, X, ChevronDown, ChevronRight, Info, Users, Compass, Mail, BookOpen, FileText, Scale, Target, UserCheck, ClipboardList, CalendarDays, Archive, Globe, Presentation } from 'lucide-vue-next'
+import { Menu, X, ChevronDown, ChevronRight, Info, Users, Compass, Mail, BookOpen, FileText, Scale, Target, UserCheck, ClipboardList, CalendarDays, Archive, Globe, Presentation, CreditCard } from 'lucide-vue-next'
 
 const { user, logout } = useAuth()
 const isScrolled = ref(false)
@@ -248,6 +248,7 @@ const navLinks = [
     children: [
       { label: 'Membership Levels and Criteria', href: '/membership/levels',   icon: Target       },
       { label: 'How to Apply',                   href: '/membership/apply',    icon: ClipboardList },
+      { label: 'Membership Fee',                 href: '/membership/fees',     icon: CreditCard   },
       { label: 'Existing Members',               href: '/membership/existing', icon: UserCheck    },
     ],
   },
