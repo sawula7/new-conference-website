@@ -2,7 +2,6 @@
   <main>
     <HeroSection />
     <StatsBar />
-    <AboutSection />
     <ThemesSection />
     <ImportantDates />
     <SpeakersSection />
