@@ -1,7 +1,7 @@
 <template>
   <section class="bg-primary-darker py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div ref="container" class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
+      <div ref="container" class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0">
         <div
           v-for="(stat, i) in stats"
           :key="stat.label"
