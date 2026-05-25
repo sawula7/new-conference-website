@@ -15,7 +15,27 @@ export default {
         body: ['Inter', 'sans-serif'],
       },
       colors: {
-        // SLSTL teal-blue primary
+        // Classic Travel Navy Blue
+        ct: {
+          navy: {
+            DEFAULT: '#0b2d59',
+            light:   '#1a4a8a',
+            dark:    '#071d3a',
+            deeper:  '#040e1c',
+          },
+          gold: {
+            DEFAULT: '#c9a84c',
+            light:   '#e8c96c',
+            dark:    '#a8882c',
+            pale:    '#f5e9c8',
+          },
+          gray: {
+            light: '#f5f7fa',
+            mid:   '#8a97a8',
+            dark:  '#3d4f63',
+          },
+        },
+        // Keep old colors for backward compatibility
         primary: {
           50:  '#f0f9fc',
           100: '#dcf0f7',
@@ -30,7 +50,6 @@ export default {
           dark: '#0d5f7e',
           darker: '#0a3d52',
         },
-        // SLSTL gold accent
         accent: {
           50:  '#fffef0',
           100: '#fdfad4',

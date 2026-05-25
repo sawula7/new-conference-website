@@ -15,65 +15,133 @@
 }
 
 @layer components {
+  /* Classic Travel Button Styles */
+  .ct-btn-primary {
+    @apply inline-flex items-center gap-2 bg-ct-navy hover:bg-ct-navy-light text-white font-semibold px-6 py-3 rounded transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ct-navy focus:ring-offset-2;
+  }
+  .ct-btn-gold {
+    @apply inline-flex items-center gap-2 bg-ct-gold hover:bg-ct-gold-dark text-ct-navy-dark font-bold px-6 py-3 rounded transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none;
+  }
+  .ct-btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-ct-navy text-ct-navy hover:bg-ct-navy hover:text-white font-semibold px-6 py-3 rounded transition-all duration-200 focus:outline-none;
+  }
+  .ct-btn-outline-white {
+    @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-ct-navy-dark font-semibold px-6 py-3 rounded transition-all duration-200 focus:outline-none;
+  }
+  .ct-btn-outline-gold {
+    @apply inline-flex items-center gap-2 border-2 border-ct-gold text-ct-gold hover:bg-ct-gold hover:text-ct-navy-dark font-semibold px-6 py-3 rounded transition-all duration-200 focus:outline-none;
+  }
+
+  /* Section helpers */
+  .ct-section-tag {
+    @apply inline-block text-sm font-bold text-ct-gold uppercase tracking-[0.15em] mb-3;
+  }
+  .ct-section-heading {
+    @apply font-display text-3xl md:text-4xl font-bold text-ct-navy-dark leading-tight;
+  }
+  .ct-section-subtext {
+    @apply text-slate-500 text-base md:text-lg mt-4 leading-relaxed;
+  }
+
+  /* Card */
+  .ct-card {
+    @apply bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-slate-100;
+  }
+
+  /* Old styles kept for backward compat */
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-ct-navy hover:bg-ct-navy-light text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ct-navy focus:ring-offset-2;
   }
   .btn-accent {
-    @apply inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-primary-darker font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+    @apply inline-flex items-center gap-2 bg-ct-gold hover:bg-ct-gold-dark text-ct-navy-dark font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none;
   }
   .btn-outline-white {
-    @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-primary-darker font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
+    @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-ct-navy-dark font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
   }
   .btn-outline-primary {
-    @apply inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
+    @apply inline-flex items-center gap-2 border-2 border-ct-navy text-ct-navy hover:bg-ct-navy hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none;
   }
   .card {
     @apply bg-white rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300;
   }
   .section-tag {
-    @apply inline-block text-sm font-bold text-primary uppercase tracking-[0.15em] mb-4;
+    @apply inline-block text-sm font-bold text-ct-gold uppercase tracking-[0.15em] mb-4;
   }
   .section-heading {
-    @apply font-display text-3xl md:text-4xl font-bold text-primary-darker leading-tight;
+    @apply font-display text-3xl md:text-4xl font-bold text-ct-navy-dark leading-tight;
   }
   .section-subtext {
     @apply text-slate-500 text-lg mt-4 leading-relaxed max-w-2xl;
   }
 }
 
-/* ─── Hero background (deep teal gradient + subtle grid) ─── */
-.hero-bg {
-  background-color: #061e2a;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(160deg, #061e2a 0%, #0a3d52 30%, #0d5f7e 65%, #1786a5 100%);
-  background-size: 60px 60px, 60px 60px, 100% 100%;
+/* ── Classic Travel Hero ── */
+.ct-hero-bg {
+  background: linear-gradient(135deg, #040e1c 0%, #071d3a 30%, #0b2d59 65%, #1a4a8a 100%);
+}
+.ct-hero-overlay {
+  background: linear-gradient(to right, rgba(4,14,28,0.85) 0%, rgba(4,14,28,0.4) 60%, transparent 100%);
+}
+.ct-hero-overlay-center {
+  background: linear-gradient(to bottom, rgba(4,14,28,0.3) 0%, rgba(4,14,28,0.6) 70%, rgba(4,14,28,0.9) 100%);
 }
 
-/* ─── Hero vignette (dark edges, bright centre) ─── */
-.hero-vignette {
-  background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 50%, rgba(6,30,42,0.65) 100%);
+/* ── Section alternating backgrounds ── */
+.ct-section-light { background-color: #f5f7fa; }
+.ct-section-white { background-color: #ffffff; }
+.ct-section-navy  { background-color: #0b2d59; }
+.ct-section-navy-dark { background-color: #071d3a; }
+
+/* ── Gold separator line ── */
+.ct-gold-line::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #c9a84c;
+  margin: 16px 0 0;
+}
+.ct-gold-line-center::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #c9a84c;
+  margin: 16px auto 0;
 }
 
-/* ─── Hero title subtle text glow ─── */
-.hero-title-glow {
-  text-shadow: 0 0 80px rgba(23,134,165,0.4), 0 0 160px rgba(23,134,165,0.15);
+/* ── Destination card hover ── */
+.ct-dest-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.ct-dest-card img {
+  transition: transform 0.5s ease;
+}
+.ct-dest-card:hover img {
+  transform: scale(1.07);
+}
+.ct-dest-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4,14,28,0.85) 0%, rgba(4,14,28,0.2) 60%, transparent 100%);
 }
 
-/* ─── Inner page hero background ─── */
-.inner-page-hero {
-  background-color: #061e2a;
-  background-image: linear-gradient(155deg, #061e2a 0%, #0a3d52 40%, #0d5f7e 80%, #1786a5 100%);
+/* ── Navbar dropdown ── */
+.ct-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
 }
-.grid-pattern {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 50px 50px;
+.ct-nav-item:hover .ct-dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ─── Scroll reveal ─── */
+/* ── Scroll reveal ── */
 .reveal {
   opacity: 0;
   transform: translateY(32px);
@@ -89,7 +157,7 @@
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.5s; }
 
-/* ─── Mobile nav overlay ─── */
+/* ── Mobile nav transitions ── */
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -100,7 +168,20 @@
   transform: translateX(100%);
 }
 
-/* ─── Schedule tab fade ─── */
+/* ── Accordion for mobile nav ── */
+.accordion-enter-active,
+.accordion-leave-active {
+  transition: opacity 0.2s ease, max-height 0.25s ease;
+  max-height: 400px;
+  overflow: hidden;
+}
+.accordion-enter-from,
+.accordion-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+/* Tab fade */
 .tab-fade-enter-active,
 .tab-fade-leave-active {
   transition: opacity 0.25s ease;
@@ -110,20 +191,7 @@
   opacity: 0;
 }
 
-/* ─── Mobile nav accordion ─── */
-.accordion-enter-active,
-.accordion-leave-active {
-  transition: opacity 0.2s ease, max-height 0.25s ease;
-  max-height: 300px;
-  overflow: hidden;
-}
-.accordion-enter-from,
-.accordion-leave-to {
-  opacity: 0;
-  max-height: 0;
-}
-
-/* ─── Countdown boxes ─── */
+/* Countdown boxes */
 .countdown-box {
   display: flex;
   flex-direction: column;
@@ -140,7 +208,28 @@
   .countdown-box { width: 96px; height: 96px; }
 }
 
-/* ─── Glass/translucent utilities not available as Tailwind fractions ─── */
+/* Glass utils */
 .bg-white\/8  { background-color: rgba(255,255,255,0.08); }
-.bg-primary\/6 { background-color: rgba(23,134,165,0.06); }
-.bg-accent\/8  { background-color: rgba(240,192,64,0.08); }
+.bg-primary\/6 { background-color: rgba(11,45,89,0.06); }
+
+/* hero-bg kept for legacy pages */
+.hero-bg {
+  background-color: #071d3a;
+  background-image: linear-gradient(160deg, #040e1c 0%, #071d3a 30%, #0b2d59 65%, #1a4a8a 100%);
+}
+.hero-vignette {
+  background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 50%, rgba(4,14,28,0.65) 100%);
+}
+.hero-title-glow {
+  text-shadow: 0 0 80px rgba(201,168,76,0.3), 0 0 160px rgba(201,168,76,0.1);
+}
+.inner-page-hero {
+  background-color: #071d3a;
+  background-image: linear-gradient(155deg, #040e1c 0%, #071d3a 40%, #0b2d59 80%, #1a4a8a 100%);
+}
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
